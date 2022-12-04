@@ -20,11 +20,16 @@ class HomeScreen extends StatelessWidget {
             'Hai,',
             style: blueTextStyle,
           ),
-          ScreenTitle(title: 'Mareto'),
+          Ktitle(title: 'Mareto'),
           const SizedBox(height: defaultMargin),
           const SearchField(),
           const SizedBox(height: defaultMargin),
-          DigitalGoodsGridViewWidget(),
+          const DigitalGoodsGridViewWidget(),
+          Ktitle(
+            title: 'Promo Sepsial',
+            buttonText: 'Lihat Semua',
+            onPressed: () {},
+          ),
         ],
       ),
     );
@@ -54,7 +59,7 @@ class DigitalGoodsGridViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
+      height: 230,
       child: GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
