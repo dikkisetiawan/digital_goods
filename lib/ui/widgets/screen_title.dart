@@ -10,7 +10,7 @@ class ScreenTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: greenTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 25),
+      style: blueTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 21),
     );
   }
 }

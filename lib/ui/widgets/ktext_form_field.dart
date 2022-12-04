@@ -24,7 +24,7 @@ class KtextFormField extends StatelessWidget {
         withTitle
             ? Text(
                 title,
-                style: greenTextStyle,
+                style: blueTextStyle,
               )
             : Container(),
         const SizedBox(

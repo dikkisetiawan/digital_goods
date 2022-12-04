@@ -19,7 +19,7 @@ class KtextWidget extends StatelessWidget {
       child: Text(
         title,
         style:
-            greenTextStyle.copyWith(fontSize: fontSize, fontWeight: fontWeight),
+            blueTextStyle.copyWith(fontSize: fontSize, fontWeight: fontWeight),
       ),
     );
   }

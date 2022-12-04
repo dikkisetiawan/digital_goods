@@ -30,7 +30,7 @@ class KappBar extends StatelessWidget {
       centerTitle: false,
       title: Text(
         'Kembali',
-        style: greenTextStyle,
+        style: blueTextStyle,
       ),
     );
   }
