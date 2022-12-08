@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/ui/widgets/bottom_navigation_bar.dart';
 import 'ui/screens/home_screen.dart';
+import 'ui/screens/tagihan_dan_hiburan_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: TagihanDanHiburanScreen(),
         routes: {
           // '/navigation': (context) => const MyBottomNavigationBar(),
           // '/login': (context) => LoginScreen(),

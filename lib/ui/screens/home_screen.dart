@@ -1,5 +1,3 @@
-import 'package:flutter/gestures.dart';
-
 import '/ui/widgets/screen_title.dart';
 import '/ui/widgets/search_field.dart';
 import '/ui/theme.dart';
@@ -47,12 +45,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {},
             ),
           ),
-          SizedBox(
-            height: 300,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-            ),
-          )
+          // cardWidget()
         ],
       ),
     );
@@ -92,6 +85,62 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+// class cardWidget extends StatelessWidget {
+//   String title;
+//   Widget? locationInfo;
+
+//   cardWidget(
+//       {Key? key,
+//       required String title,
+//       required String content,
+//       required String imagePath})
+//       : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 300,
+//       child: ListView.builder(
+//         scrollDirection: Axis.horizontal,
+//         itemBuilder: (BuildContext context, int index) {
+//           return Padding(
+//             padding: const EdgeInsets.all(30),
+//             child: ClipRRect(
+//               borderRadius: BorderRadius.circular(30),
+//               child: Container(
+//                 decoration: BoxDecoration(color: Colors.white.withOpacity(0.5)),
+//                 child: Column(
+//                   children: [
+//                     Image.asset(
+//                       imagePath,
+//                       fit: BoxFit.fill,
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.only(
+//                         top: 30,
+//                       ),
+//                       child: titleWidget(title),
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.all(30),
+//                       child: Text(
+//                         content,
+//                         style: const TextStyle(fontSize: 18),
+//                       ),
+//                     ),
+//                     ElevatedButton(
+//                         onPressed: () {}, child: const Text('More Info')),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+
 class CarousellWidget extends StatelessWidget {
   const CarousellWidget({
     Key? key,
@@ -115,7 +164,7 @@ class CarousellWidget extends StatelessWidget {
                   aspectRatio: 16 / 9,
                   disableCenter: true,
                   autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 2))),
+                  autoPlayInterval: const Duration(seconds: 3))),
           Padding(
             padding: const EdgeInsets.only(
                 top: defaultMargin / 2, left: defaultMargin),
