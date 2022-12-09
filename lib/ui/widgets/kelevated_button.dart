@@ -21,14 +21,15 @@ class KelevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: kPrimaryColor,
+          backgroundColor: kBackgroundColor,
+          side: BorderSide(color: kPrimaryColor, width: 1),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(defaultCircular), // <-- Radius
           ),
         ),
         child: Text(
           title,
-          style: whiteTextStyle,
+          style: buttonTextStyle,
         ),
       ),
     );

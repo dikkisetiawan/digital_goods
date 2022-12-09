@@ -1,3 +1,4 @@
+import '../widgets/grid_view_widget.dart';
 import '/ui/widgets/screen_title.dart';
 import '/ui/widgets/search_field.dart';
 import '/ui/theme.dart';
@@ -204,52 +205,6 @@ class CarousellWidget extends StatelessWidget {
               fit: BoxFit.cover, //agar rounded corner imagenya
             )),
       ),
-    );
-  }
-}
-
-class DigitalGoodsGridViewWidget extends StatelessWidget {
-  const DigitalGoodsGridViewWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 230,
-      child: GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 100,
-              childAspectRatio: 3 / 3,
-              crossAxisSpacing: defaultMargin / 2,
-              mainAxisExtent: defaultMargin * 4,
-              mainAxisSpacing: defaultMargin),
-          itemCount: 8,
-          itemBuilder: (BuildContext ctx, index) {
-            return circleIconButtonWidget();
-          }),
-    );
-  }
-
-  Widget circleIconButtonWidget() {
-    return Column(
-      children: [
-        RawMaterialButton(
-          onPressed: () {},
-          elevation: 2.0,
-          fillColor: kGreyColor,
-          padding: const EdgeInsets.all(15.0),
-          shape: const CircleBorder(),
-          child: Icon(
-            Icons.shopping_bag,
-            color: kPrimaryColor,
-            size: defaultMargin,
-          ),
-        ),
-        const SizedBox(height: defaultMargin / 2),
-        const Text('title here')
-      ],
     );
   }
 }

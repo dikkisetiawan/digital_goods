@@ -11,7 +11,7 @@ Color kPinkColor = const Color(0xffEB819C);
 //Secondary Color
 Color kDangerColor = const Color(0xffF27D81);
 Color kWarningColor = const Color(0xffF6CE7E);
-Color kSuccessColor = kPrimaryColor;
+Color kSuccessColor = kGreenColor;
 Color kInfoColor = const Color(0xff60B2F0);
 
 //Gray Color Set
@@ -35,20 +35,23 @@ TextStyle blueTextStyle = TextStyle(
 );
 
 TextStyle whiteTextStyle =
-    TextStyle(color: kWhiteColor, fontSize: 14, fontWeight: bold);
+    TextStyle(color: kWhiteColor, fontSize: 12, fontWeight: bold);
 
 TextStyle greyTextStyle =
-    TextStyle(color: kDarkGreyColor, fontSize: 18, fontWeight: regular);
+    TextStyle(color: kDarkGreyColor, fontSize: 11, fontWeight: regular);
 
 TextStyle buttonTextStyle =
-    TextStyle(color: kPrimaryColor, fontSize: 16, fontWeight: bold);
+    TextStyle(color: kPrimaryColor, fontSize: 14, fontWeight: bold);
 
 TextStyle blackTextStyle = TextStyle(
-    color: kBlackColor, fontSize: 18, fontWeight: bold, letterSpacing: 3);
+  color: kBlackColor,
+  fontSize: 16,
+  fontWeight: bold,
+);
 
 //Circular Value
-const defaultCircular = 15.0;
-const defaultTopLeftCircular = 100.0;
+const defaultCircular = 20.0;
+const defaultTopLeftCircular = 50.0;
 const defaultMargin = 25.0;
 
 //shadow Value
