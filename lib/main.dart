@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/ui/widgets/bottom_navigation_bar.dart';
 import 'ui/screens/home_screen.dart';
+import 'ui/screens/pulsa_dan_data_screen.dart';
 import 'ui/screens/tagihan_dan_hiburan_screen.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: TagihanDanHiburanScreen(),
+        home: PulsaDanDataScreen(),
         routes: {
           // '/navigation': (context) => const MyBottomNavigationBar(),
           // '/login': (context) => LoginScreen(),

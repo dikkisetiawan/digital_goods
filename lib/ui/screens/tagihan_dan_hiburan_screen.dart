@@ -69,16 +69,22 @@ class TagihanDanHiburanScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(defaultMargin),
             child: Text(
+              'Transaksi Berlangsung',
+              style: blackTextStyle,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
+            child: itemTileWidget(),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(defaultMargin),
+            child: Text(
               'Riwayat Transaksi',
               style: blackTextStyle,
             ),
           ),
           riwayatListWidget(),
-          const SizedBox(
-            height: defaultMargin,
-          ),
-          KfloatingActionButton(
-              onPressed: () {}, title: 'Lihat Semua Transaksi'),
           const SizedBox(
             height: defaultMargin * 2,
           ),
@@ -87,45 +93,81 @@ class TagihanDanHiburanScreen extends StatelessWidget {
     );
   }
 
-  Widget riwayatListWidget() {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Container(
-          margin: const EdgeInsets.only(bottom: defaultMargin / 2),
-          decoration:
-              BoxDecoration(color: kGreyColor, borderRadius: kBorderRadius),
-          child: ListTile(
-            leading: Icon(
-              Icons.wifi,
-              color: kPrimaryColor,
-            ),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Pulsa Indosat Rp 50.000',
-                  style: blackTextStyle.copyWith(fontSize: 16),
-                ),
-                const SizedBox(
-                  height: defaultMargin / 4,
-                ),
-                Text(
-                  '18 Maret 2022',
-                  style: greyTextStyle,
-                )
-              ],
-            ),
-            trailing: Text(
-              'Berhasil',
-              style: whiteTextStyle.copyWith(color: kSuccessColor),
-            ),
+  Padding riwayatEmptyWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(defaultMargin),
+      child: Column(
+        children: [
+          Image.asset(
+            'assets/city.jpg',
+            width: 200,
+            height: 200,
           ),
-        );
-      },
+          Text(
+            'Kamu belum pernah melakukan transaksi apapun, Yuk mulai transaksi sekarang!',
+            style: blackTextStyle.copyWith(
+              fontWeight: FontWeight.normal,
+            ),
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget riwayatListWidget() {
+    return Column(
+      children: [
+        ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return itemTileWidget();
+          },
+        ),
+        const SizedBox(
+          height: defaultMargin,
+        ),
+        KfloatingActionButton(onPressed: () {}, title: 'Lihat Semua Transaksi'),
+        const SizedBox(
+          height: defaultMargin * 2,
+        ),
+      ],
+    );
+  }
+
+  Container itemTileWidget() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: defaultMargin / 2),
+      decoration: BoxDecoration(color: kGreyColor, borderRadius: kBorderRadius),
+      child: ListTile(
+        leading: Icon(
+          Icons.wifi,
+          color: kPrimaryColor,
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Pulsa Indosat Rp 50.000',
+              style: blackTextStyle.copyWith(fontSize: 16),
+            ),
+            const SizedBox(
+              height: defaultMargin / 4,
+            ),
+            Text(
+              '18 Maret 2022',
+              style: greyTextStyle,
+            )
+          ],
+        ),
+        trailing: Text(
+          'Berhasil',
+          style: whiteTextStyle.copyWith(color: kSuccessColor),
+        ),
+      ),
     );
   }
 

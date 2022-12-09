@@ -17,8 +17,41 @@ class KfloatingActionButton extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
             width: double.infinity,
             height: 40,
-            child: KelevatedButton(title: title, onPressed: onPressed),
+            child: KelevatedButtonWidget(title: title, onPressed: onPressed),
           )
         : const SizedBox();
+  }
+}
+
+class KelevatedButtonWidget extends StatelessWidget {
+  void Function() onPressed;
+  final String title;
+
+  KelevatedButtonWidget({
+    Key? key,
+    required this.onPressed,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 40,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: kBackgroundColor,
+          side: BorderSide(color: kPrimaryColor, width: 1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(defaultCircular), // <-- Radius
+          ),
+        ),
+        child: Text(
+          title,
+          style: buttonTextStyle,
+        ),
+      ),
+    );
   }
 }

@@ -46,13 +46,13 @@ class KtextFormField extends StatelessWidget {
               contentPadding: const EdgeInsets.symmetric(horizontal: 20),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(defaultCircular - 10),
-                  borderSide: BorderSide(color: kPrimaryColor)),
+                  borderSide: BorderSide(color: kDarkGreyColor)),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(defaultCircular - 10),
-                  borderSide: BorderSide(color: kPrimaryColor)),
+                  borderSide: BorderSide(color: kDarkGreyColor)),
               hintText: ' $title',
               hintMaxLines: 2,
-              hintStyle: blackTextStyle.copyWith(
+              hintStyle: greyTextStyle.copyWith(
                   fontSize: 14,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold),
