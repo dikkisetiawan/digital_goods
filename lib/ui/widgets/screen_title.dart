@@ -5,6 +5,7 @@ import '../../ui/theme.dart';
 class Ktitle extends StatelessWidget {
   String title;
   String? buttonText;
+  double? fontSize;
   Function()? onPressed;
 
   Ktitle({
@@ -12,6 +13,7 @@ class Ktitle extends StatelessWidget {
     required this.title,
     this.buttonText,
     this.onPressed,
+    this.fontSize = 21,
   });
 
   @override
@@ -21,8 +23,8 @@ class Ktitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style:
-              blueTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 21),
+          style: blueTextStyle.copyWith(
+              fontWeight: FontWeight.bold, fontSize: fontSize),
         ),
         Visibility(
           visible: buttonText != null,
