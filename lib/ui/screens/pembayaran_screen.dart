@@ -6,8 +6,8 @@ import '/ui/theme.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class MetodePembayaranScreen extends StatelessWidget {
-  MetodePembayaranScreen({super.key});
+class PembayaranScreen extends StatelessWidget {
+  PembayaranScreen({super.key});
 
   List<MetodePembayaranModel> metodeBayarList = [
     MetodePembayaranModel(

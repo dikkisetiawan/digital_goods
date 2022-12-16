@@ -1,4 +1,6 @@
+import 'package:digital_goods/ui/screens/kode_pembyaran_screen.dart';
 import 'package:digital_goods/ui/screens/metode_pembayaran_screen.dart';
+import 'package:digital_goods/ui/screens/pembayaran_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MetodePembayaranScreen(),
+        home: KodePembayaranScreen(),
         routes: {
           // '/navigation': (context) => const MyBottomNavigationBar(),
           // '/login': (context) => LoginScreen(),
