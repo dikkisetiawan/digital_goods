@@ -1,3 +1,4 @@
+import '../widgets/grey_container_widget.dart';
 import '/ui/theme.dart';
 import '/ui/widgets/kapp_bar.dart';
 import 'package:flutter/material.dart';
@@ -55,14 +56,17 @@ class KodePembayaranScreen extends StatelessWidget {
             color: kGreyColor,
             thickness: 2,
           ),
-          transactionIdWidget()
+          transactionIdWidget(),
+          const SizedBox(
+            height: defaultMargin * 4,
+          ),
         ],
       ),
     );
   }
 
-  Container transactionIdWidget() {
-    return kGreyContainerWidget(
+  Widget transactionIdWidget() {
+    return GreyContainerWidget(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -112,8 +116,8 @@ class KodePembayaranScreen extends StatelessWidget {
     );
   }
 
-  Container virtualAccountNumberWidget() {
-    return kGreyContainerWidget(
+  Widget virtualAccountNumberWidget() {
+    return GreyContainerWidget(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -141,8 +145,8 @@ class KodePembayaranScreen extends StatelessWidget {
     ));
   }
 
-  Container amountWidget() {
-    return kGreyContainerWidget(
+  Widget amountWidget() {
+    return GreyContainerWidget(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -159,15 +163,6 @@ class KodePembayaranScreen extends StatelessWidget {
         )
       ],
     ));
-  }
-
-  Container kGreyContainerWidget({required Widget child}) {
-    return Container(
-      margin: const EdgeInsets.only(top: defaultMargin),
-      padding: const EdgeInsets.all(defaultMargin),
-      decoration: BoxDecoration(color: kGreyColor, borderRadius: kBorderRadius),
-      child: child,
-    );
   }
 
   Row virtualAccountLogoNameWidget() {

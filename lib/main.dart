@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/ui/widgets/bottom_navigation_bar.dart';
 import 'ui/screens/home_screen.dart';
+import 'ui/screens/login_screen.dart';
 import 'ui/screens/pulsa_dan_data_screen.dart';
 import 'ui/screens/tagihan_dan_hiburan_screen.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: KodePembayaranScreen(),
+        home: LoginScreen(),
         routes: {
           // '/navigation': (context) => const MyBottomNavigationBar(),
           // '/login': (context) => LoginScreen(),

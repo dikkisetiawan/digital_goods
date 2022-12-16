@@ -24,7 +24,7 @@ class KtextFormField extends StatelessWidget {
         withTitle
             ? Text(
                 title,
-                style: blueTextStyle,
+                style: blackTextStyle,
               )
             : Container(),
         const SizedBox(
@@ -50,7 +50,7 @@ class KtextFormField extends StatelessWidget {
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(defaultCircular - 10),
                   borderSide: BorderSide(color: kDarkGreyColor)),
-              hintText: ' $title',
+              hintText: 'Masukkan $title',
               hintMaxLines: 2,
               hintStyle: greyTextStyle.copyWith(
                   fontSize: 14,

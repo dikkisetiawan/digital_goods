@@ -38,7 +38,7 @@ TextStyle whiteTextStyle =
     TextStyle(color: kWhiteColor, fontSize: 12, fontWeight: bold);
 
 TextStyle greyTextStyle =
-    TextStyle(color: kDarkGreyColor, fontSize: 11, fontWeight: regular);
+    TextStyle(color: kDarkGreyColor, fontSize: 12, fontWeight: regular);
 
 TextStyle buttonTextStyle =
     TextStyle(color: kPrimaryColor, fontSize: 14, fontWeight: bold);
@@ -50,7 +50,7 @@ TextStyle blackTextStyle = TextStyle(
 );
 
 //Circular Value
-const defaultCircular = 20.0;
+const defaultCircular = 15.0;
 const defaultTopLeftCircular = 50.0;
 const defaultMargin = 25.0;
 
