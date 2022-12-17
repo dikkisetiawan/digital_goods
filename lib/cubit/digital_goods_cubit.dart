@@ -10,6 +10,8 @@ part 'digital_goods_state.dart';
 class DigitalGoodsCubit extends Cubit<DigitalGoodsState> {
   DigitalGoodsCubit() : super(DigitalGoodsInitial());
 
+  static int? selectedProductId;
+
   void fetchDigitalGoodsList() async {
     try {
       emit(DigitalGoodsLoading());

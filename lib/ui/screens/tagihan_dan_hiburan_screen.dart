@@ -201,7 +201,6 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
           boxShadow: [kShadow]),
       child: BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
         builder: (context, state) {
-          print('state is ${state.runtimeType}');
           if (state is DigitalGoodsSuccess) {
             List<DigitalGoodsProductsModel> prepaidAndPostpaidList = [
               ...state.digitalGoodsData.prepaid!,
@@ -210,13 +209,13 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
 
             return GridViewWidget(data: prepaidAndPostpaidList);
           } else if (state is DigitalGoodsFailed) {
-            return Center(child: Text('fetch product failed'));
+            return const Center(child: Text('fetch product failed'));
           } else if (state is DigitalGoodsLoading) {
             return CircularProgressIndicator(
               color: kPrimaryColor,
             );
           }
-          return Center(child: Text('no product data'));
+          return const Center(child: Text('no product data'));
           ;
         },
       ),

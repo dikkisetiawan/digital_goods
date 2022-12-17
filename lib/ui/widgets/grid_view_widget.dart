@@ -1,4 +1,5 @@
-import 'package:digital_goods/models/goods_model.dart';
+import '/cubit/digital_goods_cubit.dart';
+import '/models/goods_model.dart';
 import 'package:flutter/material.dart';
 
 import '../theme.dart';
@@ -25,16 +26,19 @@ class GridViewWidget extends StatelessWidget {
               mainAxisSpacing: defaultMargin / 4),
           itemCount: 8,
           itemBuilder: (BuildContext ctx, index) {
-            return circleIconButtonWidget(index);
+            return circleIconButtonWidget(ctx, index);
           }),
     );
   }
 
-  Column circleIconButtonWidget(int index) {
+  Column circleIconButtonWidget(BuildContext context, int index) {
     return Column(
       children: [
         RawMaterialButton(
-          onPressed: () {},
+          onPressed: () {
+            DigitalGoodsCubit.selectedProductId = data[index].id;
+            Navigator.pushNamed(context, '/pulsa-data');
+          },
           elevation: 2.0,
           fillColor: kGreyColor,
           padding: const EdgeInsets.all(15.0),

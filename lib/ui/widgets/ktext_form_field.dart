@@ -7,6 +7,7 @@ class KtextFormField extends StatelessWidget {
   final IconData? icon;
   final bool withTitle;
   final bool editable;
+  final Widget? prefix;
   final TextEditingController? controller;
   const KtextFormField(
       {this.editable = true,
@@ -14,7 +15,8 @@ class KtextFormField extends StatelessWidget {
       required this.title,
       this.icon,
       super.key,
-      this.controller});
+      this.controller,
+      this.prefix});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class KtextFormField extends StatelessWidget {
           readOnly: editable ? false : true,
           style: blackTextStyle.copyWith(letterSpacing: 0.0),
           decoration: InputDecoration(
+              prefix: prefix,
               suffixIcon: icon != null
                   ? Icon(
                       icon,

@@ -1,10 +1,28 @@
-import '../widgets/list_tile_view_list_builder_widget.dart';
+import '/cubit/digital_goods_cubit.dart';
+import '/models/goods_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:collection/collection.dart';
+
 import '/ui/theme.dart';
 import '/ui/widgets/ktext_form_field.dart';
 import 'package:flutter/material.dart';
 
-class PulsaDanDataScreen extends StatelessWidget {
+class PulsaDanDataScreen extends StatefulWidget {
   const PulsaDanDataScreen({super.key});
+
+  @override
+  State<PulsaDanDataScreen> createState() => _PulsaDanDataScreenState();
+}
+
+class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
+  String phoneNumber = '0111';
+
+  @override
+  void initState() {
+    print('prefix is ${phoneNumber.substring(0, 4)}');
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +37,28 @@ class PulsaDanDataScreen extends StatelessWidget {
   }
 
   TabBarView listSuccessViewWidget() {
-    return TabBarView(
-        children: [ListTileViewListBuilderWidget(), initialTabViewWidget()]);
+    return TabBarView(children: [
+      BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
+        builder: (context, state) {
+          if (state is DigitalGoodsSuccess) {
+            print('filter data ${getBrandByPrefix(state)?.name ?? 'unknown'}');
+          }
+          return Container();
+        },
+      ),
+      initialTabViewWidget()
+    ]);
   }
+
+  Brand? getBrandByPrefix(DigitalGoodsSuccess state) =>
+      state.digitalGoodsData.prepaid![getIndexOf(state)].brands!
+          .singleWhereOrNull((x) => filterByPrefix(x));
+
+  int getIndexOf(DigitalGoodsSuccess state) => state.digitalGoodsData.prepaid!
+      .indexWhere((x) => x.name!.toLowerCase().contains('pulsa'));
+
+  bool filterByPrefix(Brand x) =>
+      x.prefixes!.contains(phoneNumber.substring(0, 4));
 
   Column initialTabViewWidget() {
     return Column(
@@ -47,6 +84,7 @@ class PulsaDanDataScreen extends StatelessWidget {
 
   AppBar appBarWidget() {
     return AppBar(
+      automaticallyImplyLeading: false,
       elevation: 0.0,
       backgroundColor: kBackgroundColor,
       toolbarHeight: 180,
@@ -79,10 +117,26 @@ class PulsaDanDataScreen extends StatelessWidget {
             style: blackTextStyle,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: defaultMargin / 2),
-          child:
-              KtextFormField(withTitle: false, title: 'Masukkan Nomor Telpon'),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: defaultMargin / 2),
+          child: KtextFormField(
+              withTitle: false,
+              prefix: BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
+                builder: (context, state) {
+                  if (state is DigitalGoodsSuccess) {
+                    return Text(
+                      '${getBrandByPrefix(state)?.name ?? 'Unknown'}  ',
+                      style: blackTextStyle.copyWith(
+                          fontWeight: FontWeight.normal),
+                    );
+                  }
+                  return Text(
+                    'fail  ',
+                    style: greyTextStyle,
+                  );
+                },
+              ),
+              title: 'Nomor Telpon'),
         ),
       ],
     );

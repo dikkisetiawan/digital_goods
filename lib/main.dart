@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/homescreen': (context) => const HomeScreen(),
             '/tagihan-dan-hiburan': (context) => TagihanDanHiburanScreen(),
-            // '/dashboard': (context) => const DashboardScreen(),
+            '/pulsa-data': (context) => const PulsaDanDataScreen(),
             // '/reset-password': (context) => ResetPasswordScreen(),
             // '/reset-password-success': (context) =>
             //     const ResetPasswordSuccessScreen(),

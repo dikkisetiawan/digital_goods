@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 DigitalGoodsModel digitalGoodsModelFromJson(String str) =>
     DigitalGoodsModel.fromJson(json.decode(str));
 
@@ -94,7 +96,7 @@ class DigitalGoodsProductsModel {
       };
 }
 
-class Brand {
+class Brand extends Equatable {
   Brand({
     this.id,
     this.name,
@@ -141,6 +143,18 @@ class Brand {
             ? null
             : List<dynamic>.from(prefixes!.map((x) => x)),
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        id,
+        name,
+        imageUrl,
+        brandCategoryId,
+        brandCategoryName,
+        productCategories,
+        prefixes,
+      ];
 }
 
 class ProductCategory {
@@ -152,7 +166,7 @@ class ProductCategory {
 
   final int? id;
   final Name? name;
-  final List<Product>? products;
+  final List<ProductModel>? products;
 
   factory ProductCategory.fromJson(Map<String, dynamic> json) =>
       ProductCategory(
@@ -160,8 +174,8 @@ class ProductCategory {
         name: json["name"] == null ? null : nameValues.map![json["name"]],
         products: json["products"] == null
             ? null
-            : List<Product>.from(
-                json["products"].map((x) => Product.fromJson(x))),
+            : List<ProductModel>.from(
+                json["products"].map((x) => ProductModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -201,8 +215,8 @@ final nameValues = EnumValues({
   "TELKOM": Name.TELKOM
 });
 
-class Product {
-  Product({
+class ProductModel {
+  ProductModel({
     this.name,
     this.description,
     this.brandId,
@@ -226,7 +240,7 @@ class Product {
   final int? free;
   final int? price;
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         name: json["name"] ?? null,
         description: json["description"] ?? null,
         brandId: json["brand_id"] ?? null,
