@@ -1,3 +1,4 @@
+import 'package:digital_goods/cubit/digital_goods_cubit.dart';
 import 'package:digital_goods/services/auth_service.dart';
 import 'package:digital_goods/ui/screens/kode_pembyaran_screen.dart';
 import 'package:digital_goods/ui/screens/metode_pembayaran_screen.dart';
@@ -26,10 +27,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthCubit(),
         ),
+        BlocProvider(
+          create: (context) => DigitalGoodsCubit(),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: const TagihanDanHiburanScreen(),
+          home: const LoginScreen(),
           routes: {
             '/homescreen': (context) => const HomeScreen(),
             '/tagihan-dan-hiburan': (context) => TagihanDanHiburanScreen(),

@@ -6,31 +6,36 @@ import 'package:http/http.dart' as http;
 class DigitalGoodsService {
   String baseUrl = 'https://api-gowisata.aturtoko.site/api';
 
-  Future<DigitalGoodsModel> fetchDigitalGoods(String token) async {
-    var url = "$baseUrl/digital-goods";
-    var headers = {
-      'Content-Type': 'application/json',
-      'Authorization': token,
-    };
+  Future<DigitalGoodsModel> fetchDigitalGoods({required String token}) async {
+    print('fetchDigitalGoods service');
+    try {
+      var url = "$baseUrl/digital-goods";
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      };
 
-    print(headers);
+      print(headers);
 
-    var response = await http.get(
-      Uri.parse(url),
-      headers: headers,
-    );
+      var response = await http.get(
+        Uri.parse(url),
+        headers: headers,
+      );
 
-    print(jsonDecode(response.body));
+      print(jsonDecode(response.body));
 
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      DigitalGoodsModel digitalGoodsData = DigitalGoodsModel.fromJson(data);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        DigitalGoodsModel digitalGoodsData = DigitalGoodsModel.fromJson(data);
 
-      print(digitalGoodsData);
+        print(digitalGoodsData);
 
-      return digitalGoodsData;
-    } else {
-      throw Exception("Gagal Fetch Digital Goods");
+        return digitalGoodsData;
+      } else {
+        throw Exception("Gagal Fetch Digital Goods");
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 }

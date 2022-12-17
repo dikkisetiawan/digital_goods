@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: defaultMargin),
                 const SearchField(),
                 const SizedBox(height: defaultMargin),
-                const GridViewWidget(),
+                // GridViewWidget(),
                 Ktitle(
                   title: 'Promo Sepsial',
                   buttonText: 'Lihat Semua',

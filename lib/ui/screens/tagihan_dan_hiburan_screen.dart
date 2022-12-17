@@ -1,11 +1,27 @@
+import 'package:digital_goods/cubit/digital_goods_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../models/goods_model.dart';
 import '/ui/widgets/kfloating_action_button.dart';
 
 import '/ui/theme.dart';
 import 'package:flutter/material.dart';
 import '../widgets/grid_view_widget.dart';
 
-class TagihanDanHiburanScreen extends StatelessWidget {
+class TagihanDanHiburanScreen extends StatefulWidget {
   const TagihanDanHiburanScreen({super.key});
+
+  @override
+  State<TagihanDanHiburanScreen> createState() =>
+      _TagihanDanHiburanScreenState();
+}
+
+class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
+  @override
+  void initState() {
+    context.read<DigitalGoodsCubit>().fetchDigitalGoodsList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +159,9 @@ class TagihanDanHiburanScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: defaultMargin / 2),
       decoration: BoxDecoration(color: kGreyColor, borderRadius: kBorderRadius),
       child: ListTile(
+        onTap: () {
+          context.read<DigitalGoodsCubit>().fetchDigitalGoodsList();
+        },
         leading: Icon(
           Icons.wifi,
           color: kPrimaryColor,
@@ -180,7 +199,27 @@ class TagihanDanHiburanScreen extends StatelessWidget {
           color: kBackgroundColor,
           borderRadius: kBorderRadius,
           boxShadow: [kShadow]),
-      child: const GridViewWidget(),
+      child: BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
+        builder: (context, state) {
+          print('state is ${state.runtimeType}');
+          if (state is DigitalGoodsSuccess) {
+            List<DigitalGoodsProductsModel> prepaidAndPostpaidList = [
+              ...state.digitalGoodsData.prepaid!,
+              ...state.digitalGoodsData.postpaid!
+            ]; //merge prepaid and postpaid products
+
+            return GridViewWidget(data: prepaidAndPostpaidList);
+          } else if (state is DigitalGoodsFailed) {
+            return Center(child: Text('fetch product failed'));
+          } else if (state is DigitalGoodsLoading) {
+            return CircularProgressIndicator(
+              color: kPrimaryColor,
+            );
+          }
+          return Center(child: Text('no product data'));
+          ;
+        },
+      ),
     );
   }
 

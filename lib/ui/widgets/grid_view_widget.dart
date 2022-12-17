@@ -1,10 +1,14 @@
+import 'package:digital_goods/models/goods_model.dart';
 import 'package:flutter/material.dart';
 
 import '../theme.dart';
 
 class GridViewWidget extends StatelessWidget {
+  final List<DigitalGoodsProductsModel> data;
+
   const GridViewWidget({
     Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -21,12 +25,12 @@ class GridViewWidget extends StatelessWidget {
               mainAxisSpacing: defaultMargin / 4),
           itemCount: 8,
           itemBuilder: (BuildContext ctx, index) {
-            return circleIconButtonWidget();
+            return circleIconButtonWidget(index);
           }),
     );
   }
 
-  Widget circleIconButtonWidget() {
+  Column circleIconButtonWidget(int index) {
     return Column(
       children: [
         RawMaterialButton(
@@ -35,14 +39,26 @@ class GridViewWidget extends StatelessWidget {
           fillColor: kGreyColor,
           padding: const EdgeInsets.all(15.0),
           shape: const CircleBorder(),
-          child: Icon(
-            Icons.shopping_bag,
-            color: kPrimaryColor,
-            size: defaultMargin,
-          ),
+          child: index == 7
+              ? Icon(
+                  Icons.grid_on,
+                  color: kPrimaryColor,
+                  size: defaultMargin,
+                )
+              : Icon(
+                  Icons.shopping_bag,
+                  color: kPrimaryColor,
+                  size: defaultMargin,
+                ),
         ),
         const SizedBox(height: defaultMargin / 2),
-        const Text('title here')
+        Text(
+          index == 7 ? 'Lainnya' : data[index].name ?? 'Null',
+          style: blackTextStyle.copyWith(
+              fontWeight: FontWeight.bold, fontSize: 12.0),
+          overflow: TextOverflow.visible,
+          textAlign: TextAlign.center,
+        )
       ],
     );
   }

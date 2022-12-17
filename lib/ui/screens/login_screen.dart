@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
           BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
               if (state is AuthSuccess) {
-                Navigator.pushReplacementNamed(context, '/homescreen');
+                Navigator.pushReplacementNamed(context, '/tagihan-dan-hiburan');
               } else if (state is AuthFailed) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -61,8 +61,10 @@ class LoginScreen extends StatelessWidget {
             },
             builder: (context, state) {
               if (state is AuthLoading) {
-                return CircularProgressIndicator(
-                  color: kPrimaryColor,
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: kPrimaryColor,
+                  ),
                 );
               }
               return KelevatedButton(

@@ -26,8 +26,8 @@ class DigitalGoodsModel {
   final String? error;
   final String? terminalName;
   final String? storeName;
-  final List<Paid>? prepaid;
-  final List<Paid>? postpaid;
+  final List<DigitalGoodsProductsModel>? prepaid;
+  final List<DigitalGoodsProductsModel>? postpaid;
 
   factory DigitalGoodsModel.fromJson(Map<String, dynamic> json) =>
       DigitalGoodsModel(
@@ -38,10 +38,12 @@ class DigitalGoodsModel {
         storeName: json["store_name"] ?? null,
         prepaid: json["prepaid"] == null
             ? null
-            : List<Paid>.from(json["prepaid"].map((x) => Paid.fromJson(x))),
+            : List<DigitalGoodsProductsModel>.from(json["prepaid"]
+                .map((x) => DigitalGoodsProductsModel.fromJson(x))),
         postpaid: json["postpaid"] == null
             ? null
-            : List<Paid>.from(json["postpaid"].map((x) => Paid.fromJson(x))),
+            : List<DigitalGoodsProductsModel>.from(json["postpaid"]
+                .map((x) => DigitalGoodsProductsModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -59,8 +61,8 @@ class DigitalGoodsModel {
       };
 }
 
-class Paid {
-  Paid({
+class DigitalGoodsProductsModel {
+  DigitalGoodsProductsModel({
     this.id,
     this.name,
     this.imageUrl,
@@ -72,7 +74,8 @@ class Paid {
   final String? imageUrl;
   final List<Brand>? brands;
 
-  factory Paid.fromJson(Map<String, dynamic> json) => Paid(
+  factory DigitalGoodsProductsModel.fromJson(Map<String, dynamic> json) =>
+      DigitalGoodsProductsModel(
         id: json["id"] ?? null,
         name: json["name"] ?? null,
         imageUrl: json["image_url"] ?? null,
