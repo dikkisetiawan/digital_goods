@@ -42,12 +42,38 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(
             height: defaultMargin * 2,
           ),
-          KelevatedButton(
-              onPressed: () {
-                context.read<AuthCubit>().login(
-                    email: 'digital1234@gmail.com', password: 'digital1234');
-              },
-              title: 'Masuk'),
+          BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state is AuthSuccess) {
+                Navigator.pushReplacementNamed(context, '/homescreen');
+              } else if (state is AuthFailed) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: kDangerColor,
+                    content: Text(
+                      state.error,
+                      style: whiteTextStyle,
+                    ),
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is AuthLoading) {
+                return CircularProgressIndicator(
+                  color: kPrimaryColor,
+                );
+              }
+              return KelevatedButton(
+                  onPressed: () {
+                    context.read<AuthCubit>().login(
+                        email: 'digital1234@gmail.com',
+                        password: 'digital1234');
+                  },
+                  title: 'Masuk');
+            },
+          ),
           const SizedBox(
             height: defaultMargin,
           ),

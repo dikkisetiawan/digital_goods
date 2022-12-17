@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../theme.dart';
 
-class DigitalGoodsGridViewWidget extends StatelessWidget {
-  const DigitalGoodsGridViewWidget({
+class GridViewWidget extends StatelessWidget {
+  const GridViewWidget({
     Key? key,
   }) : super(key: key);
 

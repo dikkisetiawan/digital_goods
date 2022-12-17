@@ -180,7 +180,7 @@ class TagihanDanHiburanScreen extends StatelessWidget {
           color: kBackgroundColor,
           borderRadius: kBorderRadius,
           boxShadow: [kShadow]),
-      child: const DigitalGoodsGridViewWidget(),
+      child: const GridViewWidget(),
     );
   }
 

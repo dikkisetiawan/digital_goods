@@ -29,10 +29,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: const LoginScreen(),
+          home: const TagihanDanHiburanScreen(),
           routes: {
             '/homescreen': (context) => const HomeScreen(),
-            // '/login': (context) => LoginScreen(),
+            '/tagihan-dan-hiburan': (context) => TagihanDanHiburanScreen(),
             // '/dashboard': (context) => const DashboardScreen(),
             // '/reset-password': (context) => ResetPasswordScreen(),
             // '/reset-password-success': (context) =>
