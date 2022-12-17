@@ -1,3 +1,6 @@
+import 'package:digital_goods/cubit/auth_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '/ui/theme.dart';
 import '/ui/widgets/grey_container_widget.dart';
 import '/ui/widgets/kelevated_button.dart';
@@ -39,7 +42,12 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(
             height: defaultMargin * 2,
           ),
-          KelevatedButton(onPressed: () {}, title: 'Masuk'),
+          KelevatedButton(
+              onPressed: () {
+                context.read<AuthCubit>().login(
+                    email: 'digital1234@gmail.com', password: 'digital1234');
+              },
+              title: 'Masuk'),
           const SizedBox(
             height: defaultMargin,
           ),

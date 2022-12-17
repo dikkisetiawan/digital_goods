@@ -1,3 +1,4 @@
+import 'package:digital_goods/services/auth_service.dart';
 import 'package:digital_goods/ui/screens/kode_pembyaran_screen.dart';
 import 'package:digital_goods/ui/screens/metode_pembayaran_screen.dart';
 import 'package:digital_goods/ui/screens/pembayaran_screen.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/ui/widgets/bottom_navigation_bar.dart';
+import 'cubit/auth_cubit.dart';
 import 'ui/screens/home_screen.dart';
 import 'ui/screens/login_screen.dart';
 import 'ui/screens/pulsa_dan_data_screen.dart';
@@ -19,26 +21,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: LoginScreen(),
-        routes: {
-          // '/navigation': (context) => const MyBottomNavigationBar(),
-          // '/login': (context) => LoginScreen(),
-          // '/dashboard': (context) => const DashboardScreen(),
-          // '/reset-password': (context) => ResetPasswordScreen(),
-          // '/reset-password-success': (context) =>
-          //     const ResetPasswordSuccessScreen(),
-          // '/profil-perusahaan': (context) => const ProfilPerusahaanScreen(),
-          // '/master-jenis-limbah': (context) =>
-          //     const MasterJenisLimbahScreen(),
-          // TambahAtauEditJenisLimbahScreen.routeName: (context) =>
-          //     TambahAtauEditJenisLimbahScreen(),
-          // NeracaListScreen.routeName: (context) => NeracaListScreen(),
-          // DetailNeracaScreen.routeName: (context) =>
-          //     const DetailNeracaScreen(),
-          // TambahAtauRevisiNeracaScreen.routeName: (context) =>
-          //     TambahAtauRevisiNeracaScreen(),
-        });
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthCubit(),
+        ),
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: const LoginScreen(),
+          routes: {
+            '/homescreen': (context) => const HomeScreen(),
+            // '/login': (context) => LoginScreen(),
+            // '/dashboard': (context) => const DashboardScreen(),
+            // '/reset-password': (context) => ResetPasswordScreen(),
+            // '/reset-password-success': (context) =>
+            //     const ResetPasswordSuccessScreen(),
+            // '/profil-perusahaan': (context) => const ProfilPerusahaanScreen(),
+            // '/master-jenis-limbah': (context) =>
+            //     const MasterJenisLimbahScreen(),
+            // TambahAtauEditJenisLimbahScreen.routeName: (context) =>
+            //     TambahAtauEditJenisLimbahScreen(),
+            // NeracaListScreen.routeName: (context) => NeracaListScreen(),
+            // DetailNeracaScreen.routeName: (context) =>
+            //     const DetailNeracaScreen(),
+            // TambahAtauRevisiNeracaScreen.routeName: (context) =>
+            //     TambahAtauRevisiNeracaScreen(),
+          }),
+    );
   }
 }

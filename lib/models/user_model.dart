@@ -84,7 +84,7 @@ class LoginModel {
     this.accType,
   });
 
-  final String? accessToken;
+  String? accessToken;
   final String? tokenType;
   final int? expiresIn;
   final String? type;
