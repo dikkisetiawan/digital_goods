@@ -74,7 +74,7 @@ class DigitalGoodsProductsModel {
   final int? id;
   final String? name;
   final String? imageUrl;
-  final List<Brand>? brands;
+  final List<BrandModel>? brands;
 
   factory DigitalGoodsProductsModel.fromJson(Map<String, dynamic> json) =>
       DigitalGoodsProductsModel(
@@ -83,7 +83,8 @@ class DigitalGoodsProductsModel {
         imageUrl: json["image_url"] ?? null,
         brands: json["brands"] == null
             ? null
-            : List<Brand>.from(json["brands"].map((x) => Brand.fromJson(x))),
+            : List<BrandModel>.from(
+                json["brands"].map((x) => BrandModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -96,8 +97,8 @@ class DigitalGoodsProductsModel {
       };
 }
 
-class Brand extends Equatable {
-  Brand({
+class BrandModel extends Equatable {
+  BrandModel({
     this.id,
     this.name,
     this.imageUrl,
@@ -112,10 +113,10 @@ class Brand extends Equatable {
   final String? imageUrl;
   final int? brandCategoryId;
   final String? brandCategoryName;
-  final List<ProductCategory>? productCategories;
+  final List<ProductCategoryModel>? productCategories;
   final List<String>? prefixes;
 
-  factory Brand.fromJson(Map<String, dynamic> json) => Brand(
+  factory BrandModel.fromJson(Map<String, dynamic> json) => BrandModel(
         id: json["id"] ?? null,
         name: json["name"] ?? null,
         imageUrl: json["image_url"] ?? null,
@@ -123,8 +124,8 @@ class Brand extends Equatable {
         brandCategoryName: json["brand_category_name"] ?? null,
         productCategories: json["product_categories"] == null
             ? null
-            : List<ProductCategory>.from(json["product_categories"]
-                .map((x) => ProductCategory.fromJson(x))),
+            : List<ProductCategoryModel>.from(json["product_categories"]
+                .map((x) => ProductCategoryModel.fromJson(x))),
         prefixes: json["prefixes"] == null
             ? null
             : List<String>.from(json["prefixes"].map((x) => x)),
@@ -157,8 +158,8 @@ class Brand extends Equatable {
       ];
 }
 
-class ProductCategory {
-  ProductCategory({
+class ProductCategoryModel {
+  ProductCategoryModel({
     this.id,
     this.name,
     this.products,
@@ -168,8 +169,8 @@ class ProductCategory {
   final Name? name;
   final List<ProductModel>? products;
 
-  factory ProductCategory.fromJson(Map<String, dynamic> json) =>
-      ProductCategory(
+  factory ProductCategoryModel.fromJson(Map<String, dynamic> json) =>
+      ProductCategoryModel(
         id: json["id"] ?? null,
         name: json["name"] == null ? null : nameValues.map![json["name"]],
         products: json["products"] == null

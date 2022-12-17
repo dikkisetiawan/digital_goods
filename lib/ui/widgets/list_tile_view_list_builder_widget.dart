@@ -1,11 +1,15 @@
+import 'package:digital_goods/models/goods_model.dart';
 import 'package:digital_goods/ui/widgets/kelevated_button.dart';
 import 'package:flutter/material.dart';
 
 import '../theme.dart';
 
 class ListTileViewListBuilderWidget extends StatelessWidget {
+  final List<ProductModel>? productList;
+
   const ListTileViewListBuilderWidget({
     Key? key,
+    this.productList,
   }) : super(key: key);
 
   @override
@@ -14,14 +18,17 @@ class ListTileViewListBuilderWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
-      itemCount: 20,
+      itemCount: productList!.length,
       itemBuilder: (context, index) {
-        return itemTileWidget(context);
+        return itemTileWidget(context, index);
       },
     );
   }
 
-  Widget itemTileWidget(BuildContext context) {
+  Widget itemTileWidget(
+    BuildContext context,
+    int index,
+  ) {
     return Column(
       children: [
         Padding(
@@ -32,14 +39,14 @@ class ListTileViewListBuilderWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '15.000',
+                  productList?[index].name ?? 'no name',
                   style: blackTextStyle.copyWith(fontSize: 16),
                 ),
                 const SizedBox(
                   height: defaultMargin / 4,
                 ),
                 Text(
-                  'Rp 16.500',
+                  'Rp. ${productList?[index].price.toString() ?? 'no price'}',
                   style: greyTextStyle,
                 ),
               ],

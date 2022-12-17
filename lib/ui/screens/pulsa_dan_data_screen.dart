@@ -1,3 +1,5 @@
+import 'package:digital_goods/ui/widgets/list_tile_view_list_builder_widget.dart';
+
 import '/cubit/digital_goods_cubit.dart';
 import '/models/goods_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +17,7 @@ class PulsaDanDataScreen extends StatefulWidget {
 }
 
 class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
-  String phoneNumber = '0111';
+  String phoneNumber = '0851';
 
   @override
   void initState() {
@@ -36,28 +38,35 @@ class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
     );
   }
 
-  TabBarView listSuccessViewWidget() {
-    return TabBarView(children: [
-      BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
-        builder: (context, state) {
-          if (state is DigitalGoodsSuccess) {
-            print('filter data ${getBrandByPrefix(state)?.name ?? 'unknown'}');
-          }
-          return Container();
-        },
-      ),
-      initialTabViewWidget()
-    ]);
+  Widget listSuccessViewWidget() {
+    return BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
+      builder: (context, state) {
+        if (state is DigitalGoodsSuccess) {
+          return TabBarView(children: [
+            ListTileViewListBuilderWidget(
+              productList:
+                  getBrandByPrefix(state)!.productCategories![0].products,
+            ),
+            ListTileViewListBuilderWidget(
+              productList:
+                  getBrandByPrefix(state)!.productCategories![1].products,
+            )
+          ]);
+        }
+        return TabBarView(
+            children: [initialTabViewWidget(), initialTabViewWidget()]);
+      },
+    );
   }
 
-  Brand? getBrandByPrefix(DigitalGoodsSuccess state) =>
+  BrandModel? getBrandByPrefix(DigitalGoodsSuccess state) =>
       state.digitalGoodsData.prepaid![getIndexOf(state)].brands!
           .singleWhereOrNull((x) => filterByPrefix(x));
 
   int getIndexOf(DigitalGoodsSuccess state) => state.digitalGoodsData.prepaid!
       .indexWhere((x) => x.name!.toLowerCase().contains('pulsa'));
 
-  bool filterByPrefix(Brand x) =>
+  bool filterByPrefix(BrandModel x) =>
       x.prefixes!.contains(phoneNumber.substring(0, 4));
 
   Column initialTabViewWidget() {

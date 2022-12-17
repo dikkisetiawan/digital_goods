@@ -38,7 +38,7 @@ TextStyle whiteTextStyle =
     TextStyle(color: kWhiteColor, fontSize: 12, fontWeight: bold);
 
 TextStyle greyTextStyle =
-    TextStyle(color: kDarkGreyColor, fontSize: 12, fontWeight: regular);
+    TextStyle(color: kDarkGreyColor, fontSize: 14, fontWeight: regular);
 
 TextStyle buttonTextStyle =
     TextStyle(color: kPrimaryColor, fontSize: 14, fontWeight: bold);
