@@ -43,18 +43,7 @@ class MyApp extends StatelessWidget {
             '/tagihan-dan-hiburan': (context) => TagihanDanHiburanScreen(),
             '/pulsa-data': (context) => const PulsaDanDataScreen(),
             '/metode-pembayaran': (context) => MetodePembayaranScreen(),
-            // '/reset-password-success': (context) =>
-            //     const ResetPasswordSuccessScreen(),
-            // '/profil-perusahaan': (context) => const ProfilPerusahaanScreen(),
-            // '/master-jenis-limbah': (context) =>
-            //     const MasterJenisLimbahScreen(),
-            // TambahAtauEditJenisLimbahScreen.routeName: (context) =>
-            //     TambahAtauEditJenisLimbahScreen(),
-            // NeracaListScreen.routeName: (context) => NeracaListScreen(),
-            // DetailNeracaScreen.routeName: (context) =>
-            //     const DetailNeracaScreen(),
-            // TambahAtauRevisiNeracaScreen.routeName: (context) =>
-            //     TambahAtauRevisiNeracaScreen(),
+            '/kode-pembayaran': (context) => KodePembayaranScreen(),
           }),
     );
   }

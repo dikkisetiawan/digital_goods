@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:digital_goods/cubit/auth_cubit.dart';
-import 'package:digital_goods/models/payment_method_model.dart';
+import '/cubit/auth_cubit.dart';
+import '/models/payment_method_model.dart';
 
 import '/models/transaction_model.dart';
 import '/services/transaction_service.dart';
@@ -18,9 +18,14 @@ class TransactionCubit extends Cubit<TransactionState> {
     try {
       emit(TransactionLoading());
 
+      print('lastDataCreatedTransaction $lastDataCreatedTransaction');
+
       CreateTransactionModel createTransactionGetData =
           await TransactionService().createTransaction(
-              createTransactionData: lastDataCreatedTransaction!);
+              createTransactionData: lastDataCreatedTransaction!,
+              token: AuthCubit.loginData!.accessToken!);
+
+      print('createTransactionGetData $createTransactionGetData');
 
       emit(CreateTransactionSuccess(createTransactionGetData));
     } catch (e) {

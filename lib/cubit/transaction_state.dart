@@ -30,12 +30,12 @@ class CreateTransactionFailed extends TransactionState {
 }
 
 class FetchPaymentMethodListSuccess extends TransactionState {
-  final List<PaymentMethodModel> paymentMethodLis;
+  final List<PaymentMethodModel> paymentMethodList;
 
-  FetchPaymentMethodListSuccess(this.paymentMethodLis);
+  FetchPaymentMethodListSuccess(this.paymentMethodList);
 
   @override
-  List<Object> get props => [paymentMethodLis];
+  List<Object> get props => [paymentMethodList];
 }
 
 class FetchPaymentMethodListFailed extends TransactionState {

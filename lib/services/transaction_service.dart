@@ -11,13 +11,17 @@ class TransactionService {
   String baseUrl = 'https://api-gowisata.aturtoko.site/api';
 
   Future<CreateTransactionModel> createTransaction(
-      {required CreateTransactionModel createTransactionData}) async {
+      {required CreateTransactionModel createTransactionData,
+      required String token}) async {
     var url = '$baseUrl/transaction/create';
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    };
     var body = jsonEncode({
       "user_id": createTransactionData.userId,
       "total": createTransactionData.total,
-      "note": createTransactionData.note,
+      "note": createTransactionData.note ?? "test",
       "transaction_type": createTransactionData.transactionType,
       "product_type": createTransactionData.productType,
       "meta": {
@@ -27,11 +31,15 @@ class TransactionService {
       }
     });
 
+    print('body is $body');
+
     var response = await http.post(
       Uri.parse(url),
       headers: headers,
       body: body,
     );
+
+    print('response is ${response.body}');
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['data'];
@@ -46,7 +54,6 @@ class TransactionService {
 
   Future<List<PaymentMethodModel>> fetchPaymentMethodList(
       {required String token}) async {
-    print('fetchDigitalGoods service');
     try {
       var url = "$baseUrl/payment/method-list";
       var headers = {

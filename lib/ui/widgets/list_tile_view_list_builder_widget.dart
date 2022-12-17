@@ -113,6 +113,8 @@ class ListTileViewListBuilderWidget extends StatelessWidget {
               KelevatedButton(
                 title: 'Pilih Metode Pembayaran',
                 onPressed: () {
+                  Navigator.pop(context);
+
                   TransactionCubit.lastDataCreatedTransaction =
                       CreateTransactionModel(
                           userId: AuthCubit.userProfileData!.id!,
@@ -120,9 +122,8 @@ class ListTileViewListBuilderWidget extends StatelessWidget {
                           transactionType: 'PREPAID',
                           productType: 'PPOB',
                           meta: Meta(
-                              productType: productList![index]
-                                  .productCategoryName
-                                  .toString(),
+                              productType: nameValues.reverse![
+                                  productList![index].productCategoryName],
                               productName: productList![index].name,
                               destination: TransactionCubit.destination));
 
