@@ -24,19 +24,43 @@ class AuthService {
       body: body,
     );
 
-    print(jsonDecode(response.body));
-
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['data'];
       LoginModel login = LoginModel.fromJson(data);
       login.accessToken = 'Bearer ' + data['access_token'];
 
-      print(login);
       print(login.accessToken);
 
       return login;
     } else {
       throw Exception("Gagal Login");
+    }
+  }
+
+  Future<UserModel> fetchUserProfile({required String token}) async {
+    try {
+      var url = "$baseUrl/user-profile";
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      };
+
+      var response = await http.get(
+        Uri.parse(url),
+        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body)['data'];
+
+        UserModel userData = UserModel.fromJson(data);
+        print(userData);
+        return userData;
+      } else {
+        throw Exception("Gagal Fetch User Data");
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 }

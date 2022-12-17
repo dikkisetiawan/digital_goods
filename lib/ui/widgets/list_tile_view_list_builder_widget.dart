@@ -1,7 +1,10 @@
+import 'package:digital_goods/cubit/transaction_cubit.dart';
 import 'package:digital_goods/models/goods_model.dart';
+import 'package:digital_goods/models/transaction_model.dart';
 import 'package:digital_goods/ui/widgets/kelevated_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../cubit/auth_cubit.dart';
 import '../theme.dart';
 
 class ListTileViewListBuilderWidget extends StatelessWidget {
@@ -55,7 +58,7 @@ class ListTileViewListBuilderWidget extends StatelessWidget {
               width: 80,
               child: KelevatedButton(
                   onPressed: () {
-                    showModalBottomSheetWidget(context);
+                    showModalBottomSheetWidget(context, index);
                   },
                   title: 'Beli'),
             ),
@@ -69,7 +72,7 @@ class ListTileViewListBuilderWidget extends StatelessWidget {
     );
   }
 
-  Future<void> showModalBottomSheetWidget(BuildContext context) {
+  Future<void> showModalBottomSheetWidget(BuildContext context, int index) {
     return showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -88,7 +91,7 @@ class ListTileViewListBuilderWidget extends StatelessWidget {
                     style: blackTextStyle,
                   ),
                   Text(
-                    'Rp 16.500',
+                    'Rp. ${productList![index].price.toString()}',
                     style: buttonTextStyle.copyWith(fontSize: 18),
                   )
                 ],
@@ -109,7 +112,22 @@ class ListTileViewListBuilderWidget extends StatelessWidget {
               ),
               KelevatedButton(
                 title: 'Pilih Metode Pembayaran',
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  TransactionCubit.lastDataCreatedTransaction =
+                      CreateTransactionModel(
+                          userId: AuthCubit.userProfileData!.id!,
+                          total: productList![index].price,
+                          transactionType: 'PREPAID',
+                          productType: 'PPOB',
+                          meta: Meta(
+                              productType: productList![index]
+                                  .productCategoryName
+                                  .toString(),
+                              productName: productList![index].name,
+                              destination: TransactionCubit.destination));
+
+                  Navigator.pushNamed(context, '/metode-pembayaran');
+                },
               ),
             ],
           ),

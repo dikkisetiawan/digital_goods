@@ -18,7 +18,7 @@ class DigitalGoodsCubit extends Cubit<DigitalGoodsState> {
       print('fetchDigitalGoodsList cubit loading passed');
 
       DigitalGoodsModel digitalGoodsData = await DigitalGoodsService()
-          .fetchDigitalGoods(token: AuthCubit.loginData.accessToken!);
+          .fetchDigitalGoods(token: AuthCubit.loginData!.accessToken!);
       print('fetchDigitalGoodsList cubit service passed');
       emit(DigitalGoodsSuccess(digitalGoodsData));
     } catch (e) {

@@ -1,4 +1,6 @@
-import 'package:digital_goods/ui/widgets/list_tile_view_list_builder_widget.dart';
+import '/cubit/auth_cubit.dart';
+import '/cubit/transaction_cubit.dart';
+import '/ui/widgets/list_tile_view_list_builder_widget.dart';
 
 import '/cubit/digital_goods_cubit.dart';
 import '/models/goods_model.dart';
@@ -17,12 +19,12 @@ class PulsaDanDataScreen extends StatefulWidget {
 }
 
 class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
-  String phoneNumber = '0851';
+  String phoneNumber = '089683743880';
 
   @override
   void initState() {
     print('prefix is ${phoneNumber.substring(0, 4)}');
-
+    TransactionCubit.destination = phoneNumber;
     super.initState();
   }
 

@@ -8,17 +8,33 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
-  static late LoginModel loginData;
+  static LoginModel? loginData;
+  static UserModel? userProfileData;
 
   void login({required String email, required String password}) async {
     try {
       emit(AuthLoading());
 
-      loginData = await AuthService().login(email: email, password: password);
+      AuthCubit.loginData =
+          await AuthService().login(email: email, password: password);
 
-      emit(AuthSuccess(loginData));
+      emit(AuthSuccess(loginData!));
     } catch (e) {
       emit(AuthFailed(e.toString()));
+    }
+  }
+
+  void fetchUserProfile() async {
+    try {
+      emit(AuthLoading());
+
+      AuthCubit.userProfileData =
+          await AuthService().fetchUserProfile(token: loginData!.accessToken!);
+
+      print('the user id is ${AuthCubit.userProfileData}');
+      emit(FetchUserProfileSuccess(userProfileData!));
+    } catch (e) {
+      emit(FetchUserProfileFailed(e.toString()));
     }
   }
 }

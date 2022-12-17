@@ -44,9 +44,23 @@ class LoginScreen extends StatelessWidget {
           ),
           BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
+              print('level 1 state ${state.runtimeType}');
               if (state is AuthSuccess) {
-                Navigator.pushReplacementNamed(context, '/tagihan-dan-hiburan');
+                context.read<AuthCubit>().fetchUserProfile();
               } else if (state is AuthFailed) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: kDangerColor,
+                    content: Text(
+                      state.error,
+                      style: whiteTextStyle,
+                    ),
+                  ),
+                );
+              } else if (state is FetchUserProfileSuccess) {
+                Navigator.pushReplacementNamed(context, '/tagihan-dan-hiburan');
+              } else if (state is FetchUserProfileFailed) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     behavior: SnackBarBehavior.floating,

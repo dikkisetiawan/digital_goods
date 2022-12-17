@@ -1,4 +1,5 @@
 import 'package:digital_goods/cubit/digital_goods_cubit.dart';
+import 'package:digital_goods/cubit/transaction_cubit.dart';
 import 'package:digital_goods/services/auth_service.dart';
 import 'package:digital_goods/ui/screens/kode_pembyaran_screen.dart';
 import 'package:digital_goods/ui/screens/metode_pembayaran_screen.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => DigitalGoodsCubit(),
         ),
+        BlocProvider(
+          create: (context) => TransactionCubit(),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -38,7 +42,7 @@ class MyApp extends StatelessWidget {
             '/homescreen': (context) => const HomeScreen(),
             '/tagihan-dan-hiburan': (context) => TagihanDanHiburanScreen(),
             '/pulsa-data': (context) => const PulsaDanDataScreen(),
-            // '/reset-password': (context) => ResetPasswordScreen(),
+            '/metode-pembayaran': (context) => MetodePembayaranScreen(),
             // '/reset-password-success': (context) =>
             //     const ResetPasswordSuccessScreen(),
             // '/profil-perusahaan': (context) => const ProfilPerusahaanScreen(),

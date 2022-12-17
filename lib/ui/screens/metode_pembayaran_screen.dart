@@ -1,4 +1,4 @@
-import '/models/metode_pembayaran_model.dart';
+import '../../models/payment_method_model.dart';
 import '/ui/widgets/kapp_bar.dart';
 import '/ui/widgets/screen_title.dart';
 
@@ -9,26 +9,26 @@ import 'package:flutter/material.dart';
 class MetodePembayaranScreen extends StatelessWidget {
   MetodePembayaranScreen({super.key});
 
-  List<MetodePembayaranModel> metodeBayarList = [
-    MetodePembayaranModel(
+  List<PaymentMethodModel> metodeBayarList = [
+    PaymentMethodModel(
         id: 1, name: 'GoPay', type: Type.wallet, imagePath: 'gopay.png'),
-    MetodePembayaranModel(
+    PaymentMethodModel(
         id: 1, name: 'ShopeePay', type: Type.wallet, imagePath: 'gopay.png'),
-    MetodePembayaranModel(
+    PaymentMethodModel(
         id: 1, name: 'Dana', type: Type.wallet, imagePath: 'gopay.png'),
-    MetodePembayaranModel(
+    PaymentMethodModel(
         id: 1, name: 'LinkAja', type: Type.wallet, imagePath: 'gopay.png'),
-    MetodePembayaranModel(
+    PaymentMethodModel(
         id: 1, name: 'Bank BNI', type: Type.va, imagePath: 'gopay.png'),
-    MetodePembayaranModel(
+    PaymentMethodModel(
         id: 1, name: 'Bank BCA', type: Type.va, imagePath: 'gopay.png'),
-    MetodePembayaranModel(
+    PaymentMethodModel(
         id: 1, name: 'Bank Mandiri', type: Type.va, imagePath: 'gopay.png'),
-    MetodePembayaranModel(
+    PaymentMethodModel(
         id: 1, name: 'Indomaret', type: Type.merchant, imagePath: 'gopay.png'),
-    MetodePembayaranModel(
+    PaymentMethodModel(
         id: 1, name: 'Alfamart', type: Type.merchant, imagePath: 'gopay.png'),
-    MetodePembayaranModel(
+    PaymentMethodModel(
         id: 1, name: 'Alfamidi', type: Type.merchant, imagePath: 'gopay.png'),
   ];
 

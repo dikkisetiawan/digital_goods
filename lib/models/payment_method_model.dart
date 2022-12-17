@@ -1,22 +1,23 @@
 import 'dart:convert';
 
-List<MetodePembayaranModel> metodePembayaranModelFromJson(String str) =>
-    List<MetodePembayaranModel>.from(
-        json.decode(str).map((x) => MetodePembayaranModel.fromJson(x)));
+List<PaymentMethodModel> metodePembayaranModelFromJson(String str) {
+  return List<PaymentMethodModel>.from(
+      json.decode(str).map((x) => PaymentMethodModel.fromJson(x)));
+}
 
-String metodePembayaranModelToJson(List<MetodePembayaranModel> data) =>
+String metodePembayaranModelToJson(List<PaymentMethodModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class MetodePembayaranModel {
-  MetodePembayaranModel({this.id, this.name, this.type, this.imagePath});
+class PaymentMethodModel {
+  PaymentMethodModel({this.id, this.name, this.type, this.imagePath});
 
   final int? id;
   final String? name;
   final Type? type;
   final String? imagePath;
 
-  factory MetodePembayaranModel.fromJson(Map<String, dynamic> json) =>
-      MetodePembayaranModel(
+  factory PaymentMethodModel.fromJson(Map<String, dynamic> json) =>
+      PaymentMethodModel(
         id: json["id"] ?? null,
         name: json["name"] ?? null,
         type: json["type"] == null ? null : typeValues.map[json["type"]],
