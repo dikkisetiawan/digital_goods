@@ -6,26 +6,6 @@ class DigitalGoodsInitial extends DigitalGoodsState {}
 
 class DigitalGoodsLoading extends DigitalGoodsState {}
 
-class FilterBrandsByPrefixLoading extends DigitalGoodsState {}
-
-class FilterBrandsByPrefixSuccess extends DigitalGoodsState {
-  final BrandModel filteredBrandsByPrefix;
-
-  FilterBrandsByPrefixSuccess(this.filteredBrandsByPrefix);
-
-  @override
-  List<Object> get props => [filteredBrandsByPrefix];
-}
-
-class FilterBrandsByPrefixFailed extends DigitalGoodsState {
-  final String error;
-
-  FilterBrandsByPrefixFailed(this.error);
-
-  @override
-  List<Object> get props => [error];
-}
-
 class DigitalGoodsSuccess extends DigitalGoodsState {
   final DigitalGoodsModel digitalGoodsData;
 

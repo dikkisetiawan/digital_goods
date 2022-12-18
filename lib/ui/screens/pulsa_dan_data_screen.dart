@@ -1,3 +1,5 @@
+import 'package:digital_goods/cubit/digital_goods_query_cubit.dart';
+
 import '/cubit/transaction_cubit.dart';
 import '/ui/widgets/list_tile_view_list_builder_widget.dart';
 
@@ -21,7 +23,7 @@ class PulsaDanDataScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: kBackgroundColor,
         appBar: appBarWidget(context),
-        body: BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
+        body: BlocBuilder<DigitalGoodsQueryCubit, DigitalGoodsQueryState>(
           builder: (context, state) {
             print('state is ${state.runtimeType}');
 
@@ -126,7 +128,7 @@ class PulsaDanDataScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: defaultMargin / 2),
           child: KtextFormField(
             withTitle: false,
-            prefix: BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
+            prefix: BlocBuilder<DigitalGoodsQueryCubit, DigitalGoodsQueryState>(
               builder: (context, state) {
                 if (state is FilterBrandsByPrefixSuccess) {
                   return Text(
@@ -151,7 +153,7 @@ class PulsaDanDataScreen extends StatelessWidget {
             controller: destinationController,
             onChanged: (value) {
               TransactionCubit.destination = destinationController.text;
-              context.read<DigitalGoodsCubit>().filterBrandsByPrefix(
+              context.read<DigitalGoodsQueryCubit>().filterBrandsByPrefix(
                   destination: destinationController.text);
             },
           ),

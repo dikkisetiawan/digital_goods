@@ -211,8 +211,10 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
           } else if (state is DigitalGoodsFailed) {
             return const Center(child: Text('fetch product failed'));
           } else if (state is DigitalGoodsLoading) {
-            return CircularProgressIndicator(
-              color: kPrimaryColor,
+            return Center(
+              child: CircularProgressIndicator(
+                color: kPrimaryColor,
+              ),
             );
           }
           return const Center(child: Text('no product data'));

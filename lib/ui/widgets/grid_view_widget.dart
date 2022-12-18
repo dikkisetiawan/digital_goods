@@ -1,10 +1,12 @@
-import '/cubit/digital_goods_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../cubit/digital_goods_cubit.dart';
 import '/models/goods_model.dart';
 import 'package:flutter/material.dart';
 
 import '../theme.dart';
 
-class GridViewWidget extends StatelessWidget {
+class GridViewWidget extends StatefulWidget {
   final List<DigitalGoodsProductsModel> data;
 
   const GridViewWidget({
@@ -12,6 +14,11 @@ class GridViewWidget extends StatelessWidget {
     required this.data,
   }) : super(key: key);
 
+  @override
+  State<GridViewWidget> createState() => _GridViewWidgetState();
+}
+
+class _GridViewWidgetState extends State<GridViewWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -36,7 +43,7 @@ class GridViewWidget extends StatelessWidget {
       children: [
         RawMaterialButton(
           onPressed: () {
-            DigitalGoodsCubit.selectedProductId = data[index].id;
+            DigitalGoodsCubit.selectedProductId = widget.data[index].id;
             Navigator.pushNamed(context, '/pulsa-data');
           },
           elevation: 2.0,
@@ -57,7 +64,7 @@ class GridViewWidget extends StatelessWidget {
         ),
         const SizedBox(height: defaultMargin / 2),
         Text(
-          index == 7 ? 'Lainnya' : data[index].name ?? 'Null',
+          index == 7 ? 'Lainnya' : widget.data[index].name ?? 'Null',
           style: blackTextStyle.copyWith(
               fontWeight: FontWeight.bold, fontSize: 12.0),
           overflow: TextOverflow.visible,

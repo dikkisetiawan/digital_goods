@@ -1,4 +1,5 @@
 import 'package:digital_goods/cubit/digital_goods_cubit.dart';
+import 'package:digital_goods/cubit/digital_goods_query_cubit.dart';
 import 'package:digital_goods/cubit/transaction_cubit.dart';
 import 'package:digital_goods/services/auth_service.dart';
 import 'package:digital_goods/ui/screens/kode_pembyaran_screen.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DigitalGoodsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DigitalGoodsQueryCubit(),
         ),
         BlocProvider(
           create: (context) => TransactionCubit(),
