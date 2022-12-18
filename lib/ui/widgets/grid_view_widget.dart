@@ -1,5 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../cubit/digital_goods_cubit.dart';
 import '/models/goods_model.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../theme.dart';
 
 class GridViewWidget extends StatefulWidget {
-  final List<DigitalGoodsProductsModel> data;
+  final List<DigitalGoodsProductsModel>? data;
 
   const GridViewWidget({
     Key? key,
@@ -43,7 +41,7 @@ class _GridViewWidgetState extends State<GridViewWidget> {
       children: [
         RawMaterialButton(
           onPressed: () {
-            DigitalGoodsCubit.selectedProductId = widget.data[index].id;
+            DigitalGoodsCubit.selectedProductId = widget.data?[index].id;
             Navigator.pushNamed(context, '/pulsa-data');
           },
           elevation: 2.0,
@@ -63,13 +61,17 @@ class _GridViewWidgetState extends State<GridViewWidget> {
                 ),
         ),
         const SizedBox(height: defaultMargin / 2),
-        Text(
-          index == 7 ? 'Lainnya' : widget.data[index].name ?? 'Null',
-          style: blackTextStyle.copyWith(
-              fontWeight: FontWeight.bold, fontSize: 12.0),
-          overflow: TextOverflow.visible,
-          textAlign: TextAlign.center,
-        )
+        widget.data == null
+            ? LinearProgressIndicator(
+                color: kPrimaryColor,
+              )
+            : Text(
+                index == 7 ? 'Lainnya' : widget.data![index].name ?? '',
+                style: blackTextStyle.copyWith(
+                    fontWeight: FontWeight.bold, fontSize: 12.0),
+                overflow: TextOverflow.visible,
+                textAlign: TextAlign.center,
+              )
       ],
     );
   }

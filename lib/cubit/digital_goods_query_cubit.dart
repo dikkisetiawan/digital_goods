@@ -1,4 +1,6 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
+// ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
 import 'package:digital_goods/cubit/digital_goods_cubit.dart';
 import 'package:equatable/equatable.dart';
@@ -19,7 +21,6 @@ class DigitalGoodsQueryCubit extends Cubit<DigitalGoodsQueryState> {
 
         emit(FilterBrandsByPrefixSuccess(filteredBrandsByPrefix));
       } catch (e) {
-        print(e);
         emit(FilterBrandsByPrefixFailed(e.toString()));
       }
     } else if (destination.length < 4) {

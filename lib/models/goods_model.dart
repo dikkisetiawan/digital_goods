@@ -2,6 +2,8 @@
 //
 //     final digitalGoodsModel = digitalGoodsModelFromJson(jsonString);
 
+// ignore_for_file: unnecessary_null_in_if_null_operators
+
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -98,7 +100,7 @@ class DigitalGoodsProductsModel {
 }
 
 class BrandModel extends Equatable {
-  BrandModel({
+  const BrandModel({
     this.id,
     this.name,
     this.imageUrl,
@@ -146,7 +148,6 @@ class BrandModel extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         id,
         name,
@@ -189,31 +190,31 @@ class ProductCategoryModel {
 }
 
 enum Name {
-  PLN_PASCA_BAYAR,
-  HALO,
-  TELKOM,
-  PDAM,
-  BPJS_KESEHATAN,
-  PULSA,
-  DATA,
-  PAKET_TELPON,
-  PLN,
-  E_MONEY,
-  GAME
+  plnPascaBayar,
+  halo,
+  telkom,
+  pdam,
+  bpjsKesehatan,
+  pulsa,
+  data,
+  paketTelpon,
+  pln,
+  eMoney,
+  game
 }
 
 final nameValues = EnumValues({
-  "BPJS KESEHATAN": Name.BPJS_KESEHATAN,
-  "DATA": Name.DATA,
-  "E-MONEY": Name.E_MONEY,
-  "GAME": Name.GAME,
-  "HALO": Name.HALO,
-  "PAKET TELPON": Name.PAKET_TELPON,
-  "PDAM": Name.PDAM,
-  "PLN": Name.PLN,
-  "PLN PASCA BAYAR": Name.PLN_PASCA_BAYAR,
-  "PULSA": Name.PULSA,
-  "TELKOM": Name.TELKOM
+  "BPJS KESEHATAN": Name.bpjsKesehatan,
+  "DATA": Name.data,
+  "E-MONEY": Name.eMoney,
+  "GAME": Name.game,
+  "HALO": Name.halo,
+  "PAKET TELPON": Name.paketTelpon,
+  "PDAM": Name.pdam,
+  "PLN": Name.pln,
+  "PLN PASCA BAYAR": Name.plnPascaBayar,
+  "PULSA": Name.pulsa,
+  "TELKOM": Name.telkom
 });
 
 class ProductModel {
@@ -279,9 +280,7 @@ class EnumValues<T> {
   EnumValues(this.map);
 
   Map<T, String>? get reverse {
-    if (reverseMap == null) {
-      reverseMap = map!.map((k, v) => new MapEntry(v, k));
-    }
+    reverseMap ??= map!.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }
 }

@@ -14,7 +14,7 @@ class FilterBrandsByPrefixLoading extends DigitalGoodsQueryState {}
 class FilterBrandsByPrefixSuccess extends DigitalGoodsQueryState {
   final BrandModel filteredBrandsByPrefix;
 
-  FilterBrandsByPrefixSuccess(this.filteredBrandsByPrefix);
+  const FilterBrandsByPrefixSuccess(this.filteredBrandsByPrefix);
 
   @override
   List<Object> get props => [filteredBrandsByPrefix];
@@ -23,7 +23,7 @@ class FilterBrandsByPrefixSuccess extends DigitalGoodsQueryState {
 class FilterBrandsByPrefixFailed extends DigitalGoodsQueryState {
   final String error;
 
-  FilterBrandsByPrefixFailed(this.error);
+  const FilterBrandsByPrefixFailed(this.error);
 
   @override
   List<Object> get props => [error];

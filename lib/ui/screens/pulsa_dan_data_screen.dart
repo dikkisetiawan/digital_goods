@@ -1,9 +1,7 @@
-import 'package:digital_goods/cubit/digital_goods_query_cubit.dart';
+import '/cubit/digital_goods_query_cubit.dart';
 
 import '/cubit/transaction_cubit.dart';
 import '/ui/widgets/list_tile_view_list_builder_widget.dart';
-
-import '/cubit/digital_goods_cubit.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,10 +9,23 @@ import '/ui/theme.dart';
 import '/ui/widgets/ktext_form_field.dart';
 import 'package:flutter/material.dart';
 
-class PulsaDanDataScreen extends StatelessWidget {
-  PulsaDanDataScreen({super.key});
+class PulsaDanDataScreen extends StatefulWidget {
+  const PulsaDanDataScreen({super.key});
 
+  @override
+  State<PulsaDanDataScreen> createState() => _PulsaDanDataScreenState();
+}
+
+class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
   final TextEditingController destinationController = TextEditingController();
+
+  @override
+  void initState() {
+    context
+        .read<DigitalGoodsQueryCubit>()
+        .filterBrandsByPrefix(destination: destinationController.text);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +36,6 @@ class PulsaDanDataScreen extends StatelessWidget {
         appBar: appBarWidget(context),
         body: BlocBuilder<DigitalGoodsQueryCubit, DigitalGoodsQueryState>(
           builder: (context, state) {
-            print('state is ${state.runtimeType}');
-
             if (state is FilterBrandsByPrefixSuccess) {
               return TabBarView(children: [
                 ListTileViewListBuilderWidget(
@@ -113,7 +122,7 @@ class PulsaDanDataScreen extends StatelessWidget {
         const SizedBox(
           height: defaultMargin,
         ),
-        leadingWidget(),
+        leadingWidget(context),
         const SizedBox(
           height: defaultMargin,
         ),
@@ -162,9 +171,11 @@ class PulsaDanDataScreen extends StatelessWidget {
     );
   }
 
-  GestureDetector leadingWidget() {
+  GestureDetector leadingWidget(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.pop(context);
+      },
       child: Row(
         children: [
           Icon(

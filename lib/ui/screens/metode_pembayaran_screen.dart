@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class MetodePembayaranScreen extends StatefulWidget {
-  MetodePembayaranScreen({super.key});
+  const MetodePembayaranScreen({super.key});
 
   @override
   State<MetodePembayaranScreen> createState() => _MetodePembayaranScreenState();

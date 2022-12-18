@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../theme.dart';
-import 'kelevated_button.dart';
 
 // ignore: must_be_immutable
 class KfloatingActionButton extends StatelessWidget {
@@ -23,6 +22,7 @@ class KfloatingActionButton extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class KelevatedButtonWidget extends StatelessWidget {
   void Function() onPressed;
   final String title;

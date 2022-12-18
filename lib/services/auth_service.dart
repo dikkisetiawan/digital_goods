@@ -27,9 +27,7 @@ class AuthService {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['data'];
       LoginModel login = LoginModel.fromJson(data);
-      login.accessToken = 'Bearer ' + data['access_token'];
-
-      print(login.accessToken);
+      login.accessToken = 'Bearer ${data['access_token']}';
 
       return login;
     } else {
@@ -54,7 +52,7 @@ class AuthService {
         var data = jsonDecode(response.body)['data'];
 
         UserModel userData = UserModel.fromJson(data);
-        print(userData);
+
         return userData;
       } else {
         throw Exception("Gagal Fetch User Data");

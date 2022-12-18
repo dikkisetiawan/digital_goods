@@ -30,12 +30,28 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(
             height: defaultMargin * 2,
           ),
-          const KtextFormField(title: 'Email atau No. HP'),
+          Text(
+            'Email atau No. HP',
+            style: blackTextStyle,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const KtextFormField(
+              withTitle: false, title: 'digital1234@gmail.com'),
           const SizedBox(
             height: defaultMargin,
           ),
+          Text(
+            'Password',
+            style: blackTextStyle,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
           const KtextFormField(
-            title: 'Password',
+            withTitle: false,
+            title: 'digital1234',
             icon: Icons.visibility,
           ),
           rememberAndForgetPasswordWidget(),
@@ -44,7 +60,6 @@ class LoginScreen extends StatelessWidget {
           ),
           BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
-              print('level 1 state ${state.runtimeType}');
               if (state is AuthSuccess) {
                 context.read<AuthCubit>().fetchUserProfile();
               } else if (state is AuthFailed) {

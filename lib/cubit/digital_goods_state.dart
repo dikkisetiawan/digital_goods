@@ -11,7 +11,6 @@ class DigitalGoodsSuccess extends DigitalGoodsState {
 
   DigitalGoodsSuccess(this.digitalGoodsData);
 
-  @override
   List<Object> get props => [digitalGoodsData];
 }
 
@@ -20,6 +19,5 @@ class DigitalGoodsFailed extends DigitalGoodsState {
 
   DigitalGoodsFailed(this.error);
 
-  @override
   List<Object> get props => [error];
 }

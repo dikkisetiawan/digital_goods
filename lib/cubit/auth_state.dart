@@ -11,7 +11,6 @@ class AuthSuccess extends AuthState {
 
   AuthSuccess(this.login);
 
-  @override
   List<Object> get props => [login];
 }
 
@@ -20,7 +19,6 @@ class FetchUserProfileSuccess extends AuthState {
 
   FetchUserProfileSuccess(this.userProfileData);
 
-  @override
   List<Object> get props => [userProfileData];
 }
 
@@ -29,7 +27,6 @@ class FetchUserProfileFailed extends AuthState {
 
   FetchUserProfileFailed(this.error);
 
-  @override
   List<Object> get props => [error];
 }
 
@@ -38,6 +35,5 @@ class AuthFailed extends AuthState {
 
   AuthFailed(this.error);
 
-  @override
   List<Object> get props => [error];
 }

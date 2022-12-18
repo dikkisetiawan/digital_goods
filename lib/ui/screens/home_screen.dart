@@ -1,4 +1,3 @@
-import '../widgets/grid_view_widget.dart';
 import '/ui/widgets/screen_title.dart';
 import '/ui/widgets/search_field.dart';
 import '/ui/theme.dart';

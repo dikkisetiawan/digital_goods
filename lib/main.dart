@@ -1,14 +1,11 @@
 import 'package:digital_goods/cubit/digital_goods_cubit.dart';
 import 'package:digital_goods/cubit/digital_goods_query_cubit.dart';
 import 'package:digital_goods/cubit/transaction_cubit.dart';
-import 'package:digital_goods/services/auth_service.dart';
 import 'package:digital_goods/ui/screens/kode_pembyaran_screen.dart';
 import 'package:digital_goods/ui/screens/metode_pembayaran_screen.dart';
-import 'package:digital_goods/ui/screens/pembayaran_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '/ui/widgets/bottom_navigation_bar.dart';
 import 'cubit/auth_cubit.dart';
 import 'ui/screens/home_screen.dart';
 import 'ui/screens/login_screen.dart';
@@ -44,10 +41,11 @@ class MyApp extends StatelessWidget {
           home: const LoginScreen(),
           routes: {
             '/homescreen': (context) => const HomeScreen(),
-            '/tagihan-dan-hiburan': (context) => TagihanDanHiburanScreen(),
-            '/pulsa-data': (context) => PulsaDanDataScreen(),
-            '/metode-pembayaran': (context) => MetodePembayaranScreen(),
-            '/kode-pembayaran': (context) => KodePembayaranScreen(),
+            '/tagihan-dan-hiburan': (context) =>
+                const TagihanDanHiburanScreen(),
+            '/pulsa-data': (context) => const PulsaDanDataScreen(),
+            '/metode-pembayaran': (context) => const MetodePembayaranScreen(),
+            '/kode-pembayaran': (context) => const KodePembayaranScreen(),
           }),
     );
   }

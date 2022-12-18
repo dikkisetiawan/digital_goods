@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_in_if_null_operators
+
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -7,7 +9,7 @@ UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 String userModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel extends Equatable {
-  UserModel({
+  const UserModel({
     this.id,
     this.name,
     this.email,
@@ -72,7 +74,6 @@ class UserModel extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         id,
         name,

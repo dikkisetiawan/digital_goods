@@ -2,6 +2,8 @@
 //
 //     final createTransactionModel = createTransactionModelFromJson(jsonString);
 
+// ignore_for_file: unnecessary_null_in_if_null_operators
+
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -13,7 +15,7 @@ String createTransactionModelToJson(CreateTransactionModel data) =>
     json.encode(data.toJson());
 
 class CreateTransactionModel extends Equatable {
-  CreateTransactionModel({
+  const CreateTransactionModel({
     this.userId,
     this.total,
     this.note,
@@ -104,7 +106,6 @@ class CreateTransactionModel extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         userId,
         total,
@@ -121,7 +122,7 @@ class CreateTransactionModel extends Equatable {
 }
 
 class Meta extends Equatable {
-  Meta({
+  const Meta({
     this.productType,
     this.productName,
     this.destination,
@@ -155,7 +156,6 @@ class Meta extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         productType,
         productName,

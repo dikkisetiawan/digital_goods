@@ -31,7 +31,6 @@ class AuthCubit extends Cubit<AuthState> {
       AuthCubit.userProfileData =
           await AuthService().fetchUserProfile(token: loginData!.accessToken!);
 
-      print('the user id is ${AuthCubit.userProfileData}');
       emit(FetchUserProfileSuccess(userProfileData!));
     } catch (e) {
       emit(FetchUserProfileFailed(e.toString()));

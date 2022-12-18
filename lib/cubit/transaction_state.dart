@@ -14,7 +14,7 @@ class TransactionLoading extends TransactionState {}
 class CreateTransactionSuccess extends TransactionState {
   final CreateTransactionModel createTransactionGetData;
 
-  CreateTransactionSuccess(this.createTransactionGetData);
+  const CreateTransactionSuccess(this.createTransactionGetData);
 
   @override
   List<Object> get props => [createTransactionGetData];
@@ -23,7 +23,7 @@ class CreateTransactionSuccess extends TransactionState {
 class CreateTransactionFailed extends TransactionState {
   final String error;
 
-  CreateTransactionFailed(this.error);
+  const CreateTransactionFailed(this.error);
 
   @override
   List<Object> get props => [error];
@@ -32,7 +32,7 @@ class CreateTransactionFailed extends TransactionState {
 class FetchPaymentMethodListSuccess extends TransactionState {
   final List<PaymentMethodModel> paymentMethodList;
 
-  FetchPaymentMethodListSuccess(this.paymentMethodList);
+  const FetchPaymentMethodListSuccess(this.paymentMethodList);
 
   @override
   List<Object> get props => [paymentMethodList];
@@ -41,7 +41,7 @@ class FetchPaymentMethodListSuccess extends TransactionState {
 class FetchPaymentMethodListFailed extends TransactionState {
   final String error;
 
-  FetchPaymentMethodListFailed(this.error);
+  const FetchPaymentMethodListFailed(this.error);
 
   @override
   List<Object> get props => [error];

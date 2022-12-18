@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_in_if_null_operators
+
 import 'dart:convert';
 
 List<PaymentMethodModel> metodePembayaranModelFromJson(String str) {
@@ -42,9 +44,7 @@ class EnumValues<T> {
   EnumValues(this.map);
 
   Map<T, String>? get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
+    reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }
 }

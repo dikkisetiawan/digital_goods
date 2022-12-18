@@ -1,9 +1,9 @@
+// ignore_for_file: unnecessary_null_in_if_null_operators
+
 import 'dart:convert';
 
 import '/models/payment_method_model.dart';
 import '/models/transaction_model.dart';
-
-import '/models/user_model.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -31,15 +31,11 @@ class TransactionService {
       }
     });
 
-    print('body is $body');
-
     var response = await http.post(
       Uri.parse(url),
       headers: headers,
       body: body,
     );
-
-    print('response is ${response.body}');
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['data'];

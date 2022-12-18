@@ -194,7 +194,10 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
       padding: const EdgeInsets.only(
-          top: defaultMargin, left: defaultMargin, right: defaultMargin),
+        top: defaultMargin,
+        left: defaultMargin,
+        right: defaultMargin,
+      ),
       decoration: BoxDecoration(
           color: kBackgroundColor,
           borderRadius: kBorderRadius,
@@ -211,14 +214,9 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
           } else if (state is DigitalGoodsFailed) {
             return const Center(child: Text('fetch product failed'));
           } else if (state is DigitalGoodsLoading) {
-            return Center(
-              child: CircularProgressIndicator(
-                color: kPrimaryColor,
-              ),
-            );
+            return const GridViewWidget(data: null);
           }
           return const Center(child: Text('no product data'));
-          ;
         },
       ),
     );
