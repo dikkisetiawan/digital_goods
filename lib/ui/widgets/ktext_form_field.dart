@@ -9,6 +9,9 @@ class KtextFormField extends StatelessWidget {
   final bool editable;
   final Widget? prefix;
   final TextEditingController? controller;
+  final void Function(String value)? onFieldSubmitted;
+  final void Function(String value)? onChanged;
+
   const KtextFormField(
       {this.editable = true,
       this.withTitle = true,
@@ -16,7 +19,9 @@ class KtextFormField extends StatelessWidget {
       this.icon,
       super.key,
       this.controller,
-      this.prefix});
+      this.prefix,
+      this.onFieldSubmitted,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +66,8 @@ class KtextFormField extends StatelessWidget {
                   fontWeight: FontWeight.bold),
               focusColor: kPrimaryColor),
           controller: controller,
+          onFieldSubmitted: onFieldSubmitted,
+          onChanged: onChanged,
         ),
         const SizedBox(
           height: 10,

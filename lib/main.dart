@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/homescreen': (context) => const HomeScreen(),
             '/tagihan-dan-hiburan': (context) => TagihanDanHiburanScreen(),
-            '/pulsa-data': (context) => const PulsaDanDataScreen(),
+            '/pulsa-data': (context) => PulsaDanDataScreen(),
             '/metode-pembayaran': (context) => MetodePembayaranScreen(),
             '/kode-pembayaran': (context) => KodePembayaranScreen(),
           }),

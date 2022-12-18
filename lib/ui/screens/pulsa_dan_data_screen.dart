@@ -1,32 +1,18 @@
-import '/cubit/auth_cubit.dart';
 import '/cubit/transaction_cubit.dart';
 import '/ui/widgets/list_tile_view_list_builder_widget.dart';
 
 import '/cubit/digital_goods_cubit.dart';
-import '/models/goods_model.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:collection/collection.dart';
 
 import '/ui/theme.dart';
 import '/ui/widgets/ktext_form_field.dart';
 import 'package:flutter/material.dart';
 
-class PulsaDanDataScreen extends StatefulWidget {
-  const PulsaDanDataScreen({super.key});
+class PulsaDanDataScreen extends StatelessWidget {
+  PulsaDanDataScreen({super.key});
 
-  @override
-  State<PulsaDanDataScreen> createState() => _PulsaDanDataScreenState();
-}
-
-class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
-  String phoneNumber = '089683743880';
-
-  @override
-  void initState() {
-    print('prefix is ${phoneNumber.substring(0, 4)}');
-    TransactionCubit.destination = phoneNumber;
-    super.initState();
-  }
+  final TextEditingController destinationController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,72 +20,80 @@ class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
       length: 2,
       child: Scaffold(
         backgroundColor: kBackgroundColor,
-        appBar: appBarWidget(),
-        body: listSuccessViewWidget(),
+        appBar: appBarWidget(context),
+        body: BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
+          builder: (context, state) {
+            print('state is ${state.runtimeType}');
+
+            if (state is FilterBrandsByPrefixSuccess) {
+              return TabBarView(children: [
+                ListTileViewListBuilderWidget(
+                  productList: state
+                      .filteredBrandsByPrefix.productCategories![0].products,
+                ),
+                ListTileViewListBuilderWidget(
+                  productList: state
+                      .filteredBrandsByPrefix.productCategories![1].products,
+                )
+              ]);
+            } else if (state is FilterBrandsByPrefixFailed) {
+              return Center(
+                child: Text(
+                  'Harap Periksa Ulang Nomor Handphonemu',
+                  style: blackTextStyle,
+                ),
+              );
+            } else if (state is FilterBrandsByPrefixLoading) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: kPrimaryColor,
+                ),
+              );
+            }
+            return TabBarView(
+                children: [initialTabViewWidget(), initialTabViewWidget()]);
+          },
+        ),
       ),
     );
   }
 
-  Widget listSuccessViewWidget() {
-    return BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
-      builder: (context, state) {
-        if (state is DigitalGoodsSuccess) {
-          return TabBarView(children: [
-            ListTileViewListBuilderWidget(
-              productList:
-                  getBrandByPrefix(state)!.productCategories![0].products,
-            ),
-            ListTileViewListBuilderWidget(
-              productList:
-                  getBrandByPrefix(state)!.productCategories![1].products,
-            )
-          ]);
-        }
-        return TabBarView(
-            children: [initialTabViewWidget(), initialTabViewWidget()]);
-      },
-    );
+  Widget bodyWidget() {
+    return TabBarView(
+        children: [initialTabViewWidget(), initialTabViewWidget()]);
   }
 
-  BrandModel? getBrandByPrefix(DigitalGoodsSuccess state) =>
-      state.digitalGoodsData.prepaid![getIndexOf(state)].brands!
-          .singleWhereOrNull((x) => filterByPrefix(x));
-
-  int getIndexOf(DigitalGoodsSuccess state) => state.digitalGoodsData.prepaid!
-      .indexWhere((x) => x.name!.toLowerCase().contains('pulsa'));
-
-  bool filterByPrefix(BrandModel x) =>
-      x.prefixes!.contains(phoneNumber.substring(0, 4));
-
-  Column initialTabViewWidget() {
-    return Column(
-      children: [
-        const SizedBox(
-          height: defaultMargin,
-        ),
-        SizedBox(
-          width: 300,
-          height: 300,
-          child: Image.asset(
-            'assets/city.jpg',
+  Widget initialTabViewWidget() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: defaultMargin,
           ),
-        ),
-        Text(
-          'Mau beli pulsa atau Paket Data? Yuk tulis nomormu di atas!',
-          style: blackTextStyle,
-          textAlign: TextAlign.center,
-        )
-      ],
+          SizedBox(
+            width: 300,
+            height: 300,
+            child: Image.asset(
+              'assets/city.jpg',
+            ),
+          ),
+          Text(
+            'Mau beli pulsa atau Paket Data? Yuk tulis nomormu di atas!',
+            style: blackTextStyle,
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
     );
   }
 
-  AppBar appBarWidget() {
+  AppBar appBarWidget(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
       elevation: 0.0,
       backgroundColor: kBackgroundColor,
       toolbarHeight: 180,
-      title: flexibleSpaceWidget(),
+      title: flexibleSpaceWidget(context),
       bottom: TabBar(
           labelPadding: const EdgeInsets.symmetric(
               horizontal: defaultMargin, vertical: defaultMargin / 2),
@@ -110,7 +104,7 @@ class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
     );
   }
 
-  Column flexibleSpaceWidget() {
+  Column flexibleSpaceWidget(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -131,23 +125,36 @@ class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: defaultMargin / 2),
           child: KtextFormField(
-              withTitle: false,
-              prefix: BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
-                builder: (context, state) {
-                  if (state is DigitalGoodsSuccess) {
-                    return Text(
-                      '${getBrandByPrefix(state)?.name ?? 'Unknown'}  ',
-                      style: blackTextStyle.copyWith(
-                          fontWeight: FontWeight.normal),
-                    );
-                  }
+            withTitle: false,
+            prefix: BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
+              builder: (context, state) {
+                if (state is FilterBrandsByPrefixSuccess) {
                   return Text(
-                    'fail  ',
-                    style: greyTextStyle,
+                    '${state.filteredBrandsByPrefix.name ?? 'Unknown'}  ',
+                    style:
+                        blackTextStyle.copyWith(fontWeight: FontWeight.normal),
                   );
-                },
-              ),
-              title: 'Nomor Telpon'),
+                } else if (state is FilterBrandsByPrefixLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: kPrimaryColor,
+                    ),
+                  );
+                }
+                return Text(
+                  ' ',
+                  style: greyTextStyle,
+                );
+              },
+            ),
+            title: 'Nomor Telpon',
+            controller: destinationController,
+            onChanged: (value) {
+              TransactionCubit.destination = destinationController.text;
+              context.read<DigitalGoodsCubit>().filterBrandsByPrefix(
+                  destination: destinationController.text);
+            },
+          ),
         ),
       ],
     );
