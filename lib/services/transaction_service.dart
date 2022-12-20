@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:digital_goods/models/generate_payment_code_model.dart';
+import '/models/generate_payment_code_model.dart';
 
 import '/models/payment_method_model.dart';
 import '/models/transaction_model.dart';

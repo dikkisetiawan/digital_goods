@@ -1,3 +1,8 @@
+import 'package:digital_goods/cubit/transaction_cubit.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+
 import '../widgets/grey_container_widget.dart';
 import '/ui/theme.dart';
 import '/ui/widgets/kapp_bar.dart';
@@ -15,7 +20,21 @@ class KodePembayaranScreen extends StatelessWidget {
     );
   }
 
-  ListView bodyWidget() {
+  Widget bodyWidget() {
+    return BlocBuilder<TransactionCubit, TransactionState>(
+      builder: (context, state) {
+        if (state is GeneratePaymentCodeSuccess) {
+          return listViewWidget(state);
+        }
+        return Text(
+          'Gagal Create Kode Bayar',
+          style: blackTextStyle,
+        );
+      },
+    );
+  }
+
+  ListView listViewWidget(GeneratePaymentCodeSuccess state) {
     return ListView(
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.all(defaultMargin),
@@ -36,12 +55,25 @@ class KodePembayaranScreen extends StatelessWidget {
         const SizedBox(
           height: defaultMargin / 3,
         ),
-        Text(
-          '00.20.00',
-          style: blueTextStyle.copyWith(fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
+        Center(
+          child: CountdownTimer(
+            endTime: state.generatedPaymentCode.virtualAccountInfo!
+                .expiredDateUtc!.millisecondsSinceEpoch,
+            widgetBuilder: (context, time) {
+              if (time == null) {
+                return Text(
+                  'Waktu Habis',
+                  style: blackTextStyle,
+                );
+              }
+              return Text(
+                'Hari: ${time.days ?? 0}, Jam: ${time.hours ?? 0} , Menit: ${time.min ?? 0}, Detik: ${time.sec ?? 0}',
+                style: blueTextStyle,
+              );
+            },
+          ),
         ),
-        virtualAccountNumberWidget(),
+        virtualAccountNumberWidget(state),
         const SizedBox(
           height: defaultMargin,
         ),
@@ -49,7 +81,7 @@ class KodePembayaranScreen extends StatelessWidget {
           color: kGreyColor,
           thickness: 2,
         ),
-        amountWidget(),
+        amountWidget(state),
         const SizedBox(
           height: defaultMargin / 4,
         ),
@@ -61,7 +93,7 @@ class KodePembayaranScreen extends StatelessWidget {
           color: kGreyColor,
           thickness: 2,
         ),
-        transactionIdWidget(),
+        transactionIdWidget(state),
         const SizedBox(
           height: defaultMargin * 4,
         ),
@@ -69,7 +101,7 @@ class KodePembayaranScreen extends StatelessWidget {
     );
   }
 
-  Widget transactionIdWidget() {
+  Widget transactionIdWidget(GeneratePaymentCodeSuccess state) {
     return GreyContainerWidget(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,11 +114,15 @@ class KodePembayaranScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '# P102341245',
+              state.generatedPaymentCode.order?.invoiceNumber ?? 'null',
               style: blackTextStyle,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Clipboard.setData(ClipboardData(
+                    text: state.generatedPaymentCode.order?.invoiceNumber ??
+                        'null'));
+              },
               child: Text('Salin',
                   style: buttonTextStyle.copyWith(
                     decoration: TextDecoration.underline,
@@ -120,12 +156,12 @@ class KodePembayaranScreen extends StatelessWidget {
     );
   }
 
-  Widget virtualAccountNumberWidget() {
+  Widget virtualAccountNumberWidget(GeneratePaymentCodeSuccess state) {
     return GreyContainerWidget(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        virtualAccountLogoNameWidget(),
+        virtualAccountLogoNameWidget(state),
         const SizedBox(
           height: defaultMargin,
         ),
@@ -133,11 +169,18 @@ class KodePembayaranScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '0987-9821-2341',
+              state.generatedPaymentCode.virtualAccountInfo
+                      ?.virtualAccountNumber ??
+                  'null',
               style: blackTextStyle,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Clipboard.setData(ClipboardData(
+                    text: state.generatedPaymentCode.virtualAccountInfo
+                            ?.virtualAccountNumber ??
+                        'null'));
+              },
               child: Text('Salin',
                   style: buttonTextStyle.copyWith(
                     decoration: TextDecoration.underline,
@@ -149,7 +192,7 @@ class KodePembayaranScreen extends StatelessWidget {
     ));
   }
 
-  Widget amountWidget() {
+  Widget amountWidget(GeneratePaymentCodeSuccess state) {
     return GreyContainerWidget(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,14 +205,14 @@ class KodePembayaranScreen extends StatelessWidget {
           height: defaultMargin / 4,
         ),
         Text(
-          'Rp. 16.500',
+          'Rp. ${state.generatedPaymentCode.order?.amount ?? 'null'}',
           style: blueTextStyle.copyWith(fontWeight: FontWeight.bold),
         )
       ],
     ));
   }
 
-  Row virtualAccountLogoNameWidget() {
+  Row virtualAccountLogoNameWidget(GeneratePaymentCodeSuccess state) {
     return Row(
       children: [
         const FlutterLogo(size: 50.0),
@@ -179,7 +222,9 @@ class KodePembayaranScreen extends StatelessWidget {
         Column(
           children: [
             Text(
-              'Virtual Account BNI',
+              state.generatedPaymentCode.virtualAccountInfo!
+                      .virtualAccountName ??
+                  'null',
               style: blackTextStyle,
             ),
             const SizedBox(
