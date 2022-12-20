@@ -53,7 +53,8 @@ class _MetodePembayaranScreenState extends State<MetodePembayaranScreen> {
             ),
           );
         } else if (state is CreateTransactionSuccess) {
-          Navigator.pushNamed(context, '/kode-pembayaran');
+          context.read<TransactionCubit>().generatePaymentCode();
+          Navigator.pushReplacementNamed(context, '/kode-pembayaran');
         } else if (state is CreateTransactionFailed) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -130,6 +131,9 @@ class _MetodePembayaranScreenState extends State<MetodePembayaranScreen> {
           color: kBlackColor,
         ),
         onTap: () {
+          context
+              .read<TransactionCubit>()
+              .setPaymentMethodId(paymentMethod.id!);
           context.read<TransactionCubit>().createTransaction();
         },
       ),

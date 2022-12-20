@@ -29,6 +29,24 @@ class CreateTransactionFailed extends TransactionState {
   List<Object> get props => [error];
 }
 
+class GeneratePaymentCodeSuccess extends TransactionState {
+  final GeneratePaymentCodeModel generatedPaymentCode;
+
+  const GeneratePaymentCodeSuccess(this.generatedPaymentCode);
+
+  @override
+  List<Object> get props => [generatedPaymentCode];
+}
+
+class GeneratePaymentCodeFailed extends TransactionState {
+  final String error;
+
+  const GeneratePaymentCodeFailed(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
+
 class FetchPaymentMethodListSuccess extends TransactionState {
   final List<PaymentMethodModel> paymentMethodList;
 

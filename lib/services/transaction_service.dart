@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 
+import 'package:digital_goods/models/generate_payment_code_model.dart';
+
 import '/models/payment_method_model.dart';
 import '/models/transaction_model.dart';
 
@@ -80,6 +82,39 @@ class TransactionService {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<GeneratePaymentCodeModel> generatePaymentCode(
+      {required int transactionId,
+      required int paymentMethodId,
+      required String token}) async {
+    var url = '$baseUrl/payment/generateVA';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    };
+
+    var body = jsonEncode({"transaction_id": 179, "payment_method_id": 1});
+
+    print('generatePaymentCode body is $body');
+
+    var response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: body,
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)['data'];
+      GeneratePaymentCodeModel generatedPaymentCode =
+          GeneratePaymentCodeModel.fromJson(data);
+
+      print(' generatePaymentCode response is $generatedPaymentCode');
+
+      return generatedPaymentCode;
+    } else {
+      throw Exception("Gagal Create Transaction");
     }
   }
 }
