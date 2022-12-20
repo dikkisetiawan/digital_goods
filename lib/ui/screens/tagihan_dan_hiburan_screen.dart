@@ -1,3 +1,6 @@
+import 'package:digital_goods/cubit/transaction_cubit.dart';
+import 'package:digital_goods/models/transaction_model.dart';
+
 import '/cubit/digital_goods_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,6 +23,7 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
   @override
   void initState() {
     context.read<DigitalGoodsCubit>().fetchDigitalGoodsList();
+    context.read<TransactionCubit>().fetchTransactionList();
     super.initState();
   }
 
@@ -86,22 +90,18 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
           Padding(
             padding: const EdgeInsets.all(defaultMargin),
             child: Text(
-              'Transaksi Berlangsung',
-              style: blackTextStyle,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
-            child: itemTileWidget(),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(defaultMargin),
-            child: Text(
               'Riwayat Transaksi',
               style: blackTextStyle,
             ),
           ),
-          riwayatListWidget(),
+          BlocBuilder<TransactionCubit, TransactionState>(
+            builder: (context, state) {
+              if (state is FetchTransactionListSuccess) {
+                return riwayatListWidget(state.transactionList.data);
+              }
+              return riwayatEmptyWidget();
+            },
+          ),
           const SizedBox(
             height: defaultMargin * 2,
           ),
@@ -132,16 +132,16 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
     );
   }
 
-  Widget riwayatListWidget() {
+  Widget riwayatListWidget(List<DataModel>? data) {
     return Column(
       children: [
         ListView.builder(
           padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: 10,
+          itemCount: data!.length,
           itemBuilder: (context, index) {
-            return itemTileWidget();
+            return itemTileWidget(data, index);
           },
         ),
         const SizedBox(
@@ -155,14 +155,14 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
     );
   }
 
-  Container itemTileWidget() {
+  Container itemTileWidget(List<DataModel>? data, int index) {
+    MetaModel? meta = data![index].details![0].meta;
+
     return Container(
       margin: const EdgeInsets.only(bottom: defaultMargin / 2),
       decoration: BoxDecoration(color: kGreyColor, borderRadius: kBorderRadius),
       child: ListTile(
-        onTap: () {
-          context.read<DigitalGoodsCubit>().fetchDigitalGoodsList();
-        },
+        onTap: () {},
         leading: Icon(
           Icons.wifi,
           color: kPrimaryColor,
@@ -171,21 +171,30 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Pulsa Indosat Rp 50.000',
+              '${meta?.productType ?? 'null'} ${meta?.productName ?? 'null'}',
               style: blackTextStyle.copyWith(fontSize: 16),
             ),
             const SizedBox(
               height: defaultMargin / 4,
             ),
             Text(
-              '18 Maret 2022',
+              data[index].createdAt!.toIso8601String(),
               style: greyTextStyle,
             )
           ],
         ),
         trailing: Text(
-          'Berhasil',
-          style: whiteTextStyle.copyWith(color: kSuccessColor),
+          data[index].paymentStatus.toString().toLowerCase().contains('not')
+              ? 'Menunggu \nPembayaran'
+              : 'Berhasil',
+          style: whiteTextStyle.copyWith(
+              color: data[index]
+                      .paymentStatus
+                      .toString()
+                      .toLowerCase()
+                      .contains('not')
+                  ? kDangerColor
+                  : kSuccessColor),
         ),
       ),
     );

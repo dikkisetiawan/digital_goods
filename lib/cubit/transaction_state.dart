@@ -64,3 +64,21 @@ class FetchPaymentMethodListFailed extends TransactionState {
   @override
   List<Object> get props => [error];
 }
+
+class FetchTransactionListSuccess extends TransactionState {
+  final TransactionListModel transactionList;
+
+  const FetchTransactionListSuccess(this.transactionList);
+
+  @override
+  List<Object> get props => [transactionList];
+}
+
+class FetchTransactionListFailed extends TransactionState {
+  final String error;
+
+  const FetchTransactionListFailed(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

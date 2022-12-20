@@ -85,6 +85,30 @@ class TransactionService {
     }
   }
 
+  Future<TransactionListModel> fetchTransactionList(
+      {required String token}) async {
+    try {
+      var url = "$baseUrl/transaction/list";
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      };
+
+      var response = await http.get(
+        Uri.parse(url),
+        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        return TransactionListModel.fromJson(json.decode(response.body));
+      } else {
+        throw Exception("Gagal Fetch Transaction List");
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<GeneratePaymentCodeModel> generatePaymentCode(
       {required int transactionId,
       required int paymentMethodId,

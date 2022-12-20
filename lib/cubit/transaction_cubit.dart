@@ -1,6 +1,6 @@
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
-import 'package:digital_goods/models/generate_payment_code_model.dart';
+import '/models/generate_payment_code_model.dart';
 import '/cubit/auth_cubit.dart';
 import '/models/payment_method_model.dart';
 
@@ -64,6 +64,19 @@ class TransactionCubit extends Cubit<TransactionState> {
       emit(FetchPaymentMethodListSuccess(paymentMethodList));
     } catch (e) {
       emit(FetchPaymentMethodListFailed(e.toString()));
+    }
+  }
+
+  void fetchTransactionList() async {
+    try {
+      emit(TransactionLoading());
+
+      TransactionListModel transactionList =
+          await TransactionService().fetchTransactionList(token: token);
+
+      emit(FetchTransactionListSuccess(transactionList));
+    } catch (e) {
+      emit(FetchTransactionListFailed(e.toString()));
     }
   }
 }

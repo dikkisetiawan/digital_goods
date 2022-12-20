@@ -123,7 +123,7 @@ class ListTileViewListBuilderWidget extends StatelessWidget {
                               'PREPAID', //if pulsa/data manually first
                           productType: 'PPOB', //if pulsa/data manually first
                           producTypeId: 1, //if pulsa/data manually first
-                          meta: Meta(
+                          meta: MetaModel(
                               productType: nameValues.reverse![
                                   productList![index].productCategoryName],
                               productName: productList![index].name,
