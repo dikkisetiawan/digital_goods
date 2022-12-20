@@ -18,18 +18,25 @@ class TransactionService {
       'Content-Type': 'application/json',
       'Authorization': token,
     };
+
     var body = jsonEncode({
       "user_id": createTransactionData.userId,
-      "total": createTransactionData.total,
-      "note": createTransactionData.note ?? "test",
       "transaction_type": createTransactionData.transactionType,
-      "product_type": createTransactionData.productType,
-      "meta": {
-        "product_type": createTransactionData.meta?.productType ?? null,
-        "product_name": createTransactionData.meta?.productName ?? null,
-        "destination": createTransactionData.meta?.destination ?? null
-      }
+      "details": [
+        {
+          "product_type_id": createTransactionData.producTypeId,
+          "amount": createTransactionData.total,
+          "note": createTransactionData.note ?? "test",
+          "meta": {
+            "product_type": createTransactionData.meta?.productType ?? null,
+            "product_name": createTransactionData.meta?.productName ?? null,
+            "destination": createTransactionData.meta?.destination ?? null
+          }
+        }
+      ]
     });
+
+    print('body is $body');
 
     var response = await http.post(
       Uri.parse(url),
@@ -41,6 +48,8 @@ class TransactionService {
       var data = jsonDecode(response.body)['data'];
       CreateTransactionModel createTransactionData =
           CreateTransactionModel.fromJson(data);
+
+      print('response is $createTransactionData');
 
       return createTransactionData;
     } else {

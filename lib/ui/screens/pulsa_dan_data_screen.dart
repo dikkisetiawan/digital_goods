@@ -34,44 +34,43 @@ class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
       child: Scaffold(
         backgroundColor: kBackgroundColor,
         appBar: appBarWidget(context),
-        body: BlocBuilder<DigitalGoodsQueryCubit, DigitalGoodsQueryState>(
-          builder: (context, state) {
-            if (state is FilterBrandsByPrefixSuccess) {
-              return TabBarView(children: [
-                ListTileViewListBuilderWidget(
-                  productList: state
-                      .filteredBrandsByPrefix.productCategories![0].products,
-                ),
-                ListTileViewListBuilderWidget(
-                  productList: state
-                      .filteredBrandsByPrefix.productCategories![1].products,
-                )
-              ]);
-            } else if (state is FilterBrandsByPrefixFailed) {
-              return Center(
-                child: Text(
-                  'Harap Periksa Ulang Nomor Handphonemu',
-                  style: blackTextStyle,
-                ),
-              );
-            } else if (state is FilterBrandsByPrefixLoading) {
-              return Center(
-                child: CircularProgressIndicator(
-                  color: kPrimaryColor,
-                ),
-              );
-            }
-            return TabBarView(
-                children: [initialTabViewWidget(), initialTabViewWidget()]);
-          },
-        ),
+        body: bodyWidget(),
       ),
     );
   }
 
-  Widget bodyWidget() {
-    return TabBarView(
-        children: [initialTabViewWidget(), initialTabViewWidget()]);
+  BlocBuilder<DigitalGoodsQueryCubit, DigitalGoodsQueryState> bodyWidget() {
+    return BlocBuilder<DigitalGoodsQueryCubit, DigitalGoodsQueryState>(
+      builder: (context, state) {
+        if (state is FilterBrandsByPrefixSuccess) {
+          return TabBarView(children: [
+            ListTileViewListBuilderWidget(
+              productList: state.filteredBrandsByPrefix.productCategories![0]
+                  .products, //Pulsa TabView
+            ),
+            ListTileViewListBuilderWidget(
+              productList: state.filteredBrandsByPrefix.productCategories![1]
+                  .products, //Data TabView
+            )
+          ]);
+        } else if (state is FilterBrandsByPrefixFailed) {
+          return Center(
+            child: Text(
+              'Harap Periksa Ulang Nomor Handphonemu',
+              style: blackTextStyle,
+            ),
+          );
+        } else if (state is FilterBrandsByPrefixLoading) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: kPrimaryColor,
+            ),
+          );
+        }
+        return TabBarView(
+            children: [initialTabViewWidget(), initialTabViewWidget()]);
+      },
+    );
   }
 
   Widget initialTabViewWidget() {
@@ -137,27 +136,7 @@ class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
           padding: const EdgeInsets.symmetric(horizontal: defaultMargin / 2),
           child: KtextFormField(
             withTitle: false,
-            prefix: BlocBuilder<DigitalGoodsQueryCubit, DigitalGoodsQueryState>(
-              builder: (context, state) {
-                if (state is FilterBrandsByPrefixSuccess) {
-                  return Text(
-                    '${state.filteredBrandsByPrefix.name ?? 'Unknown'}  ',
-                    style:
-                        blackTextStyle.copyWith(fontWeight: FontWeight.normal),
-                  );
-                } else if (state is FilterBrandsByPrefixLoading) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: kPrimaryColor,
-                    ),
-                  );
-                }
-                return Text(
-                  ' ',
-                  style: greyTextStyle,
-                );
-              },
-            ),
+            prefix: prefixWidget(),
             title: 'Nomor Telpon',
             controller: destinationController,
             onChanged: (value) {
@@ -168,6 +147,29 @@ class _PulsaDanDataScreenState extends State<PulsaDanDataScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  BlocBuilder<DigitalGoodsQueryCubit, DigitalGoodsQueryState> prefixWidget() {
+    return BlocBuilder<DigitalGoodsQueryCubit, DigitalGoodsQueryState>(
+      builder: (context, state) {
+        if (state is FilterBrandsByPrefixSuccess) {
+          return Text(
+            '${state.filteredBrandsByPrefix.name ?? 'Unknown'}  ',
+            style: blackTextStyle.copyWith(fontWeight: FontWeight.normal),
+          );
+        } else if (state is FilterBrandsByPrefixLoading) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: kPrimaryColor,
+            ),
+          );
+        }
+        return Text(
+          ' ',
+          style: greyTextStyle,
+        );
+      },
     );
   }
 

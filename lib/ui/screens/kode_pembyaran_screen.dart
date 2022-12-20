@@ -11,57 +11,61 @@ class KodePembayaranScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: const KappBar().appBar(context, title: 'Pembayaran'),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.all(defaultMargin),
-        children: [
-          Text(
-            'Lakukan transfer ke rekening virtual akun untuk menyelesaikan pembayaran',
-            style: blackTextStyle.copyWith(fontWeight: FontWeight.normal),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: defaultMargin,
-          ),
-          Text(
-            'Selesaikan Pembayaran Sebelum',
-            style: blackTextStyle.copyWith(fontWeight: FontWeight.normal),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: defaultMargin / 3,
-          ),
-          Text(
-            '00.20.00',
-            style: blueTextStyle.copyWith(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-          virtualAccountNumberWidget(),
-          const SizedBox(
-            height: defaultMargin,
-          ),
-          Divider(
-            color: kGreyColor,
-            thickness: 2,
-          ),
-          amountWidget(),
-          const SizedBox(
-            height: defaultMargin / 4,
-          ),
-          infoWidget(),
-          const SizedBox(
-            height: defaultMargin,
-          ),
-          Divider(
-            color: kGreyColor,
-            thickness: 2,
-          ),
-          transactionIdWidget(),
-          const SizedBox(
-            height: defaultMargin * 4,
-          ),
-        ],
-      ),
+      body: bodyWidget(),
+    );
+  }
+
+  ListView bodyWidget() {
+    return ListView(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.all(defaultMargin),
+      children: [
+        Text(
+          'Lakukan transfer ke rekening virtual akun untuk menyelesaikan pembayaran',
+          style: blackTextStyle.copyWith(fontWeight: FontWeight.normal),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(
+          height: defaultMargin,
+        ),
+        Text(
+          'Selesaikan Pembayaran Sebelum',
+          style: blackTextStyle.copyWith(fontWeight: FontWeight.normal),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(
+          height: defaultMargin / 3,
+        ),
+        Text(
+          '00.20.00',
+          style: blueTextStyle.copyWith(fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        virtualAccountNumberWidget(),
+        const SizedBox(
+          height: defaultMargin,
+        ),
+        Divider(
+          color: kGreyColor,
+          thickness: 2,
+        ),
+        amountWidget(),
+        const SizedBox(
+          height: defaultMargin / 4,
+        ),
+        infoWidget(),
+        const SizedBox(
+          height: defaultMargin,
+        ),
+        Divider(
+          color: kGreyColor,
+          thickness: 2,
+        ),
+        transactionIdWidget(),
+        const SizedBox(
+          height: defaultMargin * 4,
+        ),
+      ],
     );
   }
 

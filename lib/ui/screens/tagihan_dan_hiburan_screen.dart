@@ -1,4 +1,4 @@
-import 'package:digital_goods/cubit/digital_goods_cubit.dart';
+import '/cubit/digital_goods_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/goods_model.dart';
@@ -26,6 +26,7 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBackgroundColor,
       appBar: appBarWidget(),
       body: bodyWidget(context),
     );
@@ -203,23 +204,25 @@ class _TagihanDanHiburanScreenState extends State<TagihanDanHiburanScreen> {
           borderRadius: kBorderRadius,
           boxShadow: [kShadow]),
       child: BlocBuilder<DigitalGoodsCubit, DigitalGoodsState>(
-        builder: (context, state) {
-          if (state is DigitalGoodsSuccess) {
-            List<DigitalGoodsProductsModel> prepaidAndPostpaidList = [
-              ...state.digitalGoodsData.prepaid!,
-              ...state.digitalGoodsData.postpaid!
-            ]; //merge prepaid and postpaid products
-
-            return GridViewWidget(data: prepaidAndPostpaidList);
-          } else if (state is DigitalGoodsFailed) {
-            return const Center(child: Text('fetch product failed'));
-          } else if (state is DigitalGoodsLoading) {
-            return const GridViewWidget(data: null);
-          }
-          return const Center(child: Text('no product data'));
-        },
+        builder: digitalGoodsBuilderWidget,
       ),
     );
+  }
+
+  Widget digitalGoodsBuilderWidget(context, state) {
+    if (state is DigitalGoodsSuccess) {
+      List<DigitalGoodsProductsModel> prepaidAndPostpaidList = [
+        ...state.digitalGoodsData.prepaid!,
+        ...state.digitalGoodsData.postpaid!
+      ]; //merge prepaid and postpaid products
+
+      return GridViewWidget(data: prepaidAndPostpaidList);
+    } else if (state is DigitalGoodsFailed) {
+      return const Center(child: Text('fetch product failed'));
+    } else if (state is DigitalGoodsLoading) {
+      return const GridViewWidget(data: null);
+    }
+    return const Center(child: Text('no product data'));
   }
 
   GestureDetector leadingWidget() {

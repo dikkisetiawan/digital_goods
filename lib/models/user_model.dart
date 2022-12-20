@@ -95,7 +95,7 @@ LoginModel loginModelFromJson(String str) =>
 
 String loginModelToJson(LoginModel data) => json.encode(data.toJson());
 
-class LoginModel {
+class LoginModel extends Equatable {
   LoginModel({
     this.accessToken,
     this.tokenType,
@@ -125,4 +125,14 @@ class LoginModel {
         "type": type ?? null,
         "acc_type": accType ?? null,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        accessToken,
+        tokenType,
+        expiresIn,
+        type,
+        accType,
+      ];
 }

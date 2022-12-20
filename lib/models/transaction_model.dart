@@ -21,6 +21,7 @@ class CreateTransactionModel extends Equatable {
     this.note,
     this.transactionType,
     this.productType,
+    this.producTypeId,
     this.meta,
     this.invoiceNumber,
     this.updatedAt,
@@ -33,6 +34,7 @@ class CreateTransactionModel extends Equatable {
   final int? total;
   final String? note;
   final String? transactionType;
+  final int? producTypeId;
   final String? productType;
   final Meta? meta;
   final String? invoiceNumber;
@@ -47,6 +49,7 @@ class CreateTransactionModel extends Equatable {
     String? note,
     String? transactionType,
     String? productType,
+    int? producTypeId,
     Meta? meta,
     String? invoiceNumber,
     DateTime? updatedAt,
@@ -60,6 +63,7 @@ class CreateTransactionModel extends Equatable {
         note: note ?? this.note,
         transactionType: transactionType ?? this.transactionType,
         productType: productType ?? this.productType,
+        producTypeId: producTypeId ?? this.producTypeId,
         meta: meta ?? this.meta,
         invoiceNumber: invoiceNumber ?? this.invoiceNumber,
         updatedAt: updatedAt ?? this.updatedAt,
@@ -112,6 +116,7 @@ class CreateTransactionModel extends Equatable {
         note,
         transactionType,
         productType,
+        producTypeId,
         meta,
         invoiceNumber,
         updatedAt,

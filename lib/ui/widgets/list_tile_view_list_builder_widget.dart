@@ -1,7 +1,7 @@
-import 'package:digital_goods/cubit/transaction_cubit.dart';
-import 'package:digital_goods/models/goods_model.dart';
-import 'package:digital_goods/models/transaction_model.dart';
-import 'package:digital_goods/ui/widgets/kelevated_button.dart';
+import '/cubit/transaction_cubit.dart';
+import '/models/goods_model.dart';
+import '/models/transaction_model.dart';
+import '/ui/widgets/kelevated_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../cubit/auth_cubit.dart';
@@ -119,8 +119,10 @@ class ListTileViewListBuilderWidget extends StatelessWidget {
                       CreateTransactionModel(
                           userId: AuthCubit.userProfileData!.id!,
                           total: productList![index].price,
-                          transactionType: 'PREPAID',
-                          productType: 'PPOB',
+                          transactionType:
+                              'PREPAID', //if pulsa/data manually first
+                          productType: 'PPOB', //if pulsa/data manually first
+                          producTypeId: 1, //if pulsa/data manually first
                           meta: Meta(
                               productType: nameValues.reverse![
                                   productList![index].productCategoryName],

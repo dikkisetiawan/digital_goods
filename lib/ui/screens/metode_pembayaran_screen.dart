@@ -1,4 +1,4 @@
-import 'package:digital_goods/cubit/transaction_cubit.dart';
+import '/cubit/transaction_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/payment_method_model.dart';
@@ -34,66 +34,72 @@ class _MetodePembayaranScreenState extends State<MetodePembayaranScreen> {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: const KappBar().appBar(context, title: 'Pilih Metode Pembayaran'),
-      body: BlocConsumer<TransactionCubit, TransactionState>(
-        listener: (context, state) {
-          if (state is FetchPaymentMethodListFailed) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: kDangerColor,
-                content: Text(
-                  state.error,
-                  style: whiteTextStyle,
-                ),
-              ),
-            );
-          } else if (state is CreateTransactionSuccess) {
-            Navigator.pushNamed(context, '/kode-pembayaran');
-          } else if (state is CreateTransactionFailed) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: kDangerColor,
-                content: Text(
-                  state.error,
-                  style: whiteTextStyle,
-                ),
-              ),
-            );
-            Navigator.pop(context);
-          }
-        },
-        builder: (context, state) {
-          if (state is FetchPaymentMethodListSuccess) {
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.all(defaultMargin),
-              itemCount: state.paymentMethodList.length,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return typeTitleWidget(state.paymentMethodList[index]);
-                } else if (state.paymentMethodList[index].type ==
-                    state.paymentMethodList[index - 1].type) {
-                  return listTileWidget(state.paymentMethodList[index]);
-                } else {
-                  return typeTitleWidget(state.paymentMethodList[index]);
-                }
-              },
-            );
-          } else if (state is TransactionLoading) {
-            return Center(
-                child: CircularProgressIndicator(
-              color: kPrimaryColor,
-            ));
-          }
-          return Center(
-              child: Text(
-            'Gagal fetch metode bayar',
-            style: blackTextStyle,
-          ));
-        },
-      ),
+      body: bodyWidget(),
     );
+  }
+
+  BlocConsumer<TransactionCubit, TransactionState> bodyWidget() {
+    return BlocConsumer<TransactionCubit, TransactionState>(
+      listener: (context, state) {
+        if (state is FetchPaymentMethodListFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: kDangerColor,
+              content: Text(
+                state.error,
+                style: whiteTextStyle,
+              ),
+            ),
+          );
+        } else if (state is CreateTransactionSuccess) {
+          Navigator.pushNamed(context, '/kode-pembayaran');
+        } else if (state is CreateTransactionFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: kDangerColor,
+              content: Text(
+                state.error,
+                style: whiteTextStyle,
+              ),
+            ),
+          );
+          Navigator.pop(context);
+        }
+      },
+      builder: listViewBuilderWidget,
+    );
+  }
+
+  Widget listViewBuilderWidget(context, state) {
+    if (state is FetchPaymentMethodListSuccess) {
+      return ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(defaultMargin),
+        itemCount: state.paymentMethodList.length,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return typeTitleWidget(state.paymentMethodList[index]);
+          } else if (state.paymentMethodList[index].type ==
+              state.paymentMethodList[index - 1].type) {
+            return listTileWidget(state.paymentMethodList[index]);
+          } else {
+            return typeTitleWidget(state.paymentMethodList[index]);
+          }
+        },
+      );
+    } else if (state is TransactionLoading) {
+      return Center(
+          child: CircularProgressIndicator(
+        color: kPrimaryColor,
+      ));
+    }
+    return Center(
+        child: Text(
+      'Gagal fetch metode bayar',
+      style: blackTextStyle,
+    ));
   }
 
   Padding typeTitleWidget(PaymentMethodModel paymentMethod) {
